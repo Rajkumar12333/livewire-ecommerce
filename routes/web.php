@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\{ProductController};
 Route::view('/', 'welcome');
 
 Route::view('dashboard', 'dashboard')
@@ -15,8 +15,8 @@ Route::view('profile', 'profile')
 require __DIR__.'/auth.php';
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/add-products', [AgentController::class, 'add_page'])->name("add-products");
-    Route::get('/products', [AgentController::class, 'list_page'])->name("list-products");
-    Route::get('/edit-products/{id}', [AgentController::class, 'edit_page'])->name("edit-products");
+    Route::get('/add-products', [ProductController::class, 'add_page'])->name("add-products");
+    Route::get('/products', [ProductController::class, 'list_page'])->name("list-products");
+    Route::get('/edit-products/{id}', [ProductController::class, 'edit_page'])->name("edit-products");
 
 });
