@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Modules\Product;
 class ProductController extends Controller
 {
     public function add_page(){
@@ -16,8 +16,13 @@ class ProductController extends Controller
     }
     public function edit_page($id){
         return view("Backend.Product.add-product",[
-            'agentId' => $id,
+            'recordId' => $id,
             'page_title'=>'Edit Agent'
         ]);
+    }
+    public function destroy($id)
+    {
+        $post = Product::findOrFail($id);
+        $post->delete();
     }
 }

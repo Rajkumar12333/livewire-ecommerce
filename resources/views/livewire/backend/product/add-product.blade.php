@@ -18,7 +18,24 @@
                             <label for="">Description</label>
                             <textarea name="description" id="" class="form-control" wire:model="description"></textarea> <!-- Bind with wire:model -->
                         </div>
-                        <button type="submit" class="btn btn-success ms-auto">Save</button> <!-- Button type="submit" -->
+                        <div class="form-group">
+                            <label for="">Price</label>
+                            <input type="text" class="form-control" wire:model="price">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Seo Title</label>
+                           
+                            <input type="text" class="form-control" wire:model="seo_title">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Seo Description</label>
+                            <input type="text" class="form-control" wire:model="seo_description">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Seo Keywords</label>
+                            <input type="text" class="form-control" wire:model="seo_keywords">
+                        </div>
+                        <button type="submit" class="btn btn-success ms-auto">Save</button> 
                     </div>
                 </form>
             </div>
