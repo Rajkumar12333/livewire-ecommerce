@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{ProductController,FrontendController};
+use App\Http\Controllers\{ProductController,FrontendController,DepartmentController};
 Route::view('/', 'frontend.index');
 
 
@@ -20,6 +20,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/products', [ProductController::class, 'list_page'])->name("list-products");
     Route::get('/edit-products/{id}', [ProductController::class, 'edit_page'])->name("edit-products");
     Route::get('/delete-products/{id}', [ProductController::class, 'destroy'])->name("delete-products");
+
+    Route::get('/add-department', [DepartmentController::class, 'add_page'])->name("add-department");
+    Route::get('/department', [DepartmentController::class, 'list_page'])->name("list-department");
+    Route::get('/edit-department/{id}', [DepartmentController::class, 'edit_page'])->name("edit-department");
+    Route::get('/delete-department/{id}', [DepartmentController::class, 'destroy'])->name("delete-department");
 
 });
 Route::get('/shop', [FrontendController::class, 'shop'])->name("shop");
