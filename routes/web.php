@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{ProductController,FrontendController,DepartmentController};
+use App\Http\Controllers\{ProductController,FrontendController,DepartmentController,ColorController};
 Route::view('/', 'frontend.index');
 
 
@@ -25,6 +25,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/department', [DepartmentController::class, 'list_page'])->name("list-department");
     Route::get('/edit-department/{id}', [DepartmentController::class, 'edit_page'])->name("edit-department");
     Route::get('/delete-department/{id}', [DepartmentController::class, 'destroy'])->name("delete-department");
+
+    Route::get('/add-color', [ColorController::class, 'add_page'])->name("add-color");
+    Route::get('/color', [ColorController::class, 'list_page'])->name("list-color");
+    Route::get('/edit-color/{id}', [ColorController::class, 'edit_page'])->name("edit-color");
+    Route::get('/delete-color/{id}', [ColorController::class, 'destroy'])->name("delete-color");
 
 });
 Route::get('/shop', [FrontendController::class, 'shop'])->name("shop");
