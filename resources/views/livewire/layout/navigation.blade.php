@@ -56,6 +56,11 @@ new class extends Component
                         {{ __('Size') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('list-contact')" :active="request()->routeIs('list-contact')" wire:navigate>
+                        {{ __('Contact') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->

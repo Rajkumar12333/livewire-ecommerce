@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{ProductController,FrontendController,DepartmentController,ColorController,SizeController};
+use App\Http\Controllers\{ProductController,FrontendController,DepartmentController,ColorController,SizeController,ContactController};
 Route::view('/', 'frontend.index');
 
 
@@ -16,6 +16,7 @@ Route::view('profile', 'profile')
 require __DIR__.'/auth.php';
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::prefix('admin')->group(function () {
     Route::get('/add-products', [ProductController::class, 'add_page'])->name("add-products");
     Route::get('/products', [ProductController::class, 'list_page'])->name("list-products");
     Route::get('/edit-products/{id}', [ProductController::class, 'edit_page'])->name("edit-products");
@@ -35,7 +36,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/size', [SizeController::class, 'list_page'])->name("list-size");
     Route::get('/edit-size/{id}', [SizeController::class, 'edit_page'])->name("edit-size");
     Route::get('/delete-size/{id}', [SizeController::class, 'destroy'])->name("delete-size");
-
+    Route::get('/contact', [ContactController::class, 'list_page'])->name("list-contact");
+});
 });
 Route::get('/shop', [FrontendController::class, 'shop'])->name("shop");
 Route::get('/contact', [FrontendController::class, 'contact'])->name("contact");
