@@ -46,6 +46,16 @@ new class extends Component
                         {{ __('Department') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('list-color')" :active="request()->routeIs('list-color')" wire:navigate>
+                        {{ __('Color') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('list-size')" :active="request()->routeIs('list-size')" wire:navigate>
+                        {{ __('Size') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->

@@ -12,8 +12,10 @@ class FrontendController extends Controller
     public function contact(){
         return view("Frontend.contact");
     }
-    public function shop_detail(){
-        return view("Frontend.shop-detail");
+    public function shop_detail($id){
+        return view("Frontend.shop-detail",[
+            'recordId'=>$id
+        ]);
     }
     public function shoping_cart(){
         return view("Frontend.shoping-cart");

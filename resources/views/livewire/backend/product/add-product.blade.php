@@ -15,6 +15,12 @@
                             <input type="text" class="form-control" wire:model="title"> <!-- Bind with wire:model -->
                         </div>
                         <div class="form-group">
+                        <input type="file" wire:model="image">
+                        <input type="hidden" wire:model="prev_image">
+                        @error('photo') <span class="error">{{ $message }}</span> @enderror
+                        <img src="{{'/storage/'.$image}}" height="100px" width="100px" alt="">
+                        </div>
+                        <div class="form-group">
                             <label for="">Description</label>
                             <textarea name="description" id="" class="form-control" wire:model="description"></textarea> <!-- Bind with wire:model -->
                         </div>
@@ -22,6 +28,35 @@
                             <label for="">Price</label>
                             <input type="text" class="form-control" wire:model="price">
                         </div>
+                        <div class="form-group">
+                            <label for="">Department</label>
+                            <select wire:model.change="department" id="cars" class="form-control">
+                                <option value="">Select Department</option>
+                                @foreach($departmentData as $data)
+                                <option value="{{$data->id}}">{{$data->title}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Size</label>
+                            <select wire:model.change="size" id="cars">
+                                <option value="">Select Size</option>
+                                @foreach($sizeData as $data)
+                                <option value="{{$data->id}}">{{$data->title}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Color</label>
+                            <select wire:model.change="color" id="cars">
+                                <option value="">Select Color</option>
+                                @foreach($colorData as $data)
+                                <option value="{{$data->id}}">{{$data->title}}</option>
+                                @endforeach
+                            </select>
+              
+                        </div>
+
                         <div class="form-group">
                             <label for="">Seo Title</label>
                            

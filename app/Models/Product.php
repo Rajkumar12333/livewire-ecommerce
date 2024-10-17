@@ -12,9 +12,14 @@ class Product extends Model
     use HasFactory;
     protected $fillable = [
         'title',
+        'image',
         'description',
         'unique_id',
-        'status'
+        'status',
+        'department',
+        'size',
+        'color',
+        'price'
     ];
     protected $dates = ['deleted_at'];
 }

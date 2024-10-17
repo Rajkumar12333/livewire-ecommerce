@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{ProductController,FrontendController,DepartmentController,ColorController};
+use App\Http\Controllers\{ProductController,FrontendController,DepartmentController,ColorController,SizeController};
 Route::view('/', 'frontend.index');
 
 
@@ -31,9 +31,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/edit-color/{id}', [ColorController::class, 'edit_page'])->name("edit-color");
     Route::get('/delete-color/{id}', [ColorController::class, 'destroy'])->name("delete-color");
 
+    Route::get('/add-size', [SizeController::class, 'add_page'])->name("add-size");
+    Route::get('/size', [SizeController::class, 'list_page'])->name("list-size");
+    Route::get('/edit-size/{id}', [SizeController::class, 'edit_page'])->name("edit-size");
+    Route::get('/delete-size/{id}', [SizeController::class, 'destroy'])->name("delete-size");
+
 });
 Route::get('/shop', [FrontendController::class, 'shop'])->name("shop");
 Route::get('/contact', [FrontendController::class, 'contact'])->name("contact");
-Route::get('/shop-detail', [FrontendController::class, 'shop_detail'])->name("shop-detail");
+Route::post('/contact/store', [FrontendController::class, 'contact_store'])->name("contact.store");
+Route::get('/shop-detail/{id}', [FrontendController::class, 'shop_detail'])->name("shop-detail");
 Route::get('/shoping-cart', [FrontendController::class, 'shoping_cart'])->name("shoping-cart");
 Route::get('/checkout', [FrontendController::class, 'checkout'])->name("checkout");

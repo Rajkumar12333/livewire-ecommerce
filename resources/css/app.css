@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.product__pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product__pagination a, .product__pagination span {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+    text-decoration: none;
+    color: #333;
+}
+
+.product__pagination a:hover, .product__pagination span.active {
+    background-color: #f2f2f2;
+}
+
+.product__pagination span.disabled {
+    color: #ccc;
+    cursor: not-allowed;
+}
