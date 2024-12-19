@@ -23,12 +23,9 @@ class ShopingCart extends Component
     {
         $this->cart = Cart::where('user_id', Auth::id())
         ->with(['product' => function($query) {
-            $query->select('id', 'title', 'price'); // Make sure to include 'id'
+            $query->select('id', 'title', 'price','image'); // Make sure to include 'id'
         }])
         ->get();
-
-    
-       
     }
     
     public function calculateSubtotal()
@@ -49,5 +46,63 @@ class ShopingCart extends Component
         // You can add any additional charges like tax or shipping if needed
         return $this->calculateSubtotal();
     }
+    public function removeProduct($id)
+    {
+        // Find the product in the cart for the authenticated user
+        $product = Cart::where('user_id', auth()->user()->id)
+                       ->where('product_id', $id)
+                       ->first();
 
+        if ($product) {
+            // Delete the product from the cart
+            $product->delete();
+
+            // Emit a success message to the frontend
+            $this->dispatch('success', 'Product removed from cart successfully!');
+            $this->dispatch('refreshComponent');
+        } else {
+            // Emit an error message to the frontend if product is not found
+            $this->dispatch('error', 'Product not found in your cart!');
+        }
+    }
+
+    public function increaseQuantity($cartItemId)
+    {
+        $cartItem = Cart::find($cartItemId);
+    
+        if (!$cartItem || $cartItem->user_id !== Auth::id()) {
+            $this->dispatch('error', 'Cart item not found or access denied.');
+            return;
+        }
+    
+        $cartItem->quantity++;
+        $cartItem->save();
+    
+        $this->dispatch('success', 'Product quantity increased.');
+        $this->loadCart();
+        $this->dispatch('refreshComponent');
+    }
+    public function decreaseQuantity($cartItemId)
+    {
+        $cartItem = Cart::find($cartItemId);
+    
+        if (!$cartItem || $cartItem->user_id !== Auth::id()) {
+            $this->dispatch('error', 'Cart item not found or access denied.');
+            return;
+        }
+    
+        if ($cartItem->quantity > 1) {
+            $cartItem->quantity--;
+            $cartItem->save();
+    
+            $this->dispatch('success', 'Product quantity decreased.');
+        } else {
+            $cartItem->delete();
+            $this->dispatch('success', 'Product removed from cart.');
+        }
+    
+        $this->loadCart();
+        $this->dispatch('refreshComponent');
+    }
+        
 }

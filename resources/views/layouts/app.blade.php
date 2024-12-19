@@ -33,4 +33,30 @@
             </main>
         </div>
     </body>
+    <!-- Include Toastr CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
+<!-- Include Toastr JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+<!-- Livewire Script -->
+@livewireScripts
+
+<script>
+Livewire.on('success', message => {
+    console.log("Success event received:", message);
+    toastr.success(message, "Success", {
+        "positionClass": "toast-top-right",
+        "timeOut": 5000
+    });
+});
+Livewire.on('error', message => {
+    console.log("Error event received:", message);
+    toastr.error(message, "Error", {
+        "positionClass": "toast-top-right",
+        "timeOut": 5000
+    });
+});
+
+</script>
 </html>

@@ -67,9 +67,12 @@ class AddProduct extends Component
         $product->image=$path;
         $product->save();
 
-
-        session()->flash('message', 'Post successfully updated.');
-
+        if(isset($this->recordId)){
+            session()->flash('message', 'Post successfully updated.');
+        }else{
+            session()->flash('message', 'Post successfully Added.');
+        }
+       
         return redirect()->route('list-products');
     }
     

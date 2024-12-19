@@ -112,7 +112,7 @@
                         <div class="product__item">
                             <!-- Wrap the product image in a link -->
                             <a href="{{ route('shop-detail', $data->unique_id) }}">
-                                <div class="product__item__pic set-bg" data-setbg="{{'/storage/'.$data->image}}">
+                                <div class="product__item__pic set-bg" data-setbg="{{asset('storage/'.$data->image)}}">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>

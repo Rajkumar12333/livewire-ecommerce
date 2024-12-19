@@ -252,7 +252,31 @@
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
 
-    @livewireScripts
+<!-- Include Toastr CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
+<!-- Include Toastr JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+<!-- Livewire Script -->
+@livewireScripts
+
+<script>
+    // Listen for the 'productRemoved' event from Livewire
+    Livewire.on('success', message => {
+        toastr.success(message, "Success", {
+            "positionClass": "toast-top-right",
+            "timeOut": 5000
+        });
+    });
+    Livewire.on('error', message => {
+        toastr.success(message, "Error", {
+            "positionClass": "toast-top-right",
+            "timeOut": 5000
+        });
+    });
+</script>
+
 </body>
 
 </html>

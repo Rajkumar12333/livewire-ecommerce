@@ -99,7 +99,7 @@ class Shop extends Component
         $product = Product::find($productId);
    
         if (!$product) {
-            session()->flash('error', 'Product not found.');
+            $this->dispatch('error', 'Product not found.');
             return;
         }
 
@@ -119,8 +119,10 @@ class Shop extends Component
             ]);
         }
 
-        session()->flash('success', 'Product added to cart.');
+        $this->dispatch('success', 'Product added to cart');
         $this->loadCart();
+        $this->dispatch('refreshComponent');
+       
     }
     public function loadCart()
     {

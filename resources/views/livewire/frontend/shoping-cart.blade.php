@@ -15,27 +15,30 @@
                                 </tr>
                             </thead>
                             <tbody>
+                              
                                 @foreach($cart as $data)
                                 <tr>
                                     <td class="shoping__cart__item">
-                                        <img src="{{asset('/storage/'.$data->product->image)}}" alt="">
+                                        <img src="{{asset('storage/'.$data->product->image)}}" alt="" height="100ox" width="100px">
                                         <h5>{{$data->product->title}}</h5>
                                     </td>
                                     <td class="shoping__cart__price">
-                                        $ {{$data->product->price}}
+                                        ₹ {{$data->product->price}}
                                     </td>
                                     <td class="shoping__cart__quantity">
                                         <div class="quantity">
                                             <div class="pro-qty">
+                                            <span class="dec qtybtn" wire:click="decreaseQuantity({{$data->id}})">-</span>
                                                 <input type="text" wire:model="quantity"value="{{$data->quantity}}">
+                                                <span class="inc qtybtn" wire:click="increaseQuantity({{$data->id}})">+</span>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="shoping__cart__total">
-                                        $ {{$data->product->price * $data->quantity}}
+                                        ₹ {{$data->product->price * $data->quantity}}
                                     </td>
                                     <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
+                                        <span class="icon_close"  wire:click="removeProduct({{$data->product->id}})"></span>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -48,9 +51,9 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
-                        <a href="{{route('shop')}}" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
+                        <!-- <a href="{{route('shop')}}" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
                         <a href="#" wire:click="$dispatch('refreshComponent')" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
-                            Upadate Cart</a>
+                            Upadate Cart</a> -->
                     </div>
                 </div>
                 <div class="col-lg-6">
