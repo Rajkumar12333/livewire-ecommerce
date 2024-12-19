@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Livewire\Frontend;
-
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
-use App\Models\{Department,Color,Product,Size};
+use App\Models\{Department,Color,Product,Size,Cart};
 use Livewire\WithPagination;
 class Shop extends Component
 {
@@ -53,7 +53,7 @@ class Shop extends Component
       
         $this->latest_product = Product::orderBy('id', 'desc')->take(6)->get();
         $this->sizes=Size::orderBy('id','desc')->get();
-        
+        $this->loadCart();
     }
     public function updatedCategory($value)
     {
@@ -94,5 +94,38 @@ class Shop extends Component
         // // For debugging, you can uncomment the following line
         // // dd($this->product);
     }
-    
+    public function addToCart($productId)
+    {
+        $product = Product::find($productId);
+   
+        if (!$product) {
+            session()->flash('error', 'Product not found.');
+            return;
+        }
+
+        // Check if the product is already in the user's cart
+        $cartItem = Cart::where('user_id', Auth::id())->where('product_id', $productId)->first();
+        
+        if ($cartItem) {
+            // If the product is already in the cart, update the quantity
+            $cartItem->quantity++;
+            $cartItem->save();
+        } else {
+            // If it's a new product, add it to the cart
+            Cart::create([
+                'user_id' => Auth::id(),
+                'product_id' => $product->id,
+                'quantity' => 1,
+            ]);
+        }
+
+        session()->flash('success', 'Product added to cart.');
+        $this->loadCart();
+    }
+    public function loadCart()
+    {
+        $this->cart = Cart::where('user_id', Auth::id())->with('product')->get();
+    }
+
+
 }
