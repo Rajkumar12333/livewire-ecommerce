@@ -44,8 +44,8 @@
             <tr>
                 <th>Title</th>
                 <th>Description</th>
-                <!-- <th>Office</th>
-                <th>Age</th>
+                 <th>Image</th>
+                <!--<th>Age</th>
                 <th>Start date</th> -->
                 <th>Action</th>
             </tr>
@@ -55,13 +55,15 @@
             <tr>
                 <td>{{$product->title}}</td>
                 <td>{{$product->description}}</td>
-                <!-- <td>Edinburgh</td>
-                <td>61</td>
+                <td><img src="{{asset('storage/'.$product->image)}}" alt="" height="100px;" width="100px; "></td>
+                <!-- <td>61</td>
                 <td>2011-04-25</td> -->
                 <td>
                 <a href="{{ route('edit-products', $product->id) }}"><i class="fa-solid fa-pen-to-square"></i></a>
 
-                <button type="submit" wire:click.prevent="delete('{{ $product->id }}')">Delete</button>
+                <button type="submit" wire:click.prevent="delete('{{ $product->id }}')">
+                <i class="fa-solid fa-trash"></i>
+                </button>
                 </td>
             </tr>
             @endforeach
@@ -70,8 +72,8 @@
             <tr>
                 <th>Title</th>
                 <th>Description</th>
-                <!-- <th>Office</th>
-                <th>Age</th>
+                 <th>Image</th>
+                <!--<th>Age</th>
                 <th>Start date</th> -->
                 <th>Action</th>
             </tr>
