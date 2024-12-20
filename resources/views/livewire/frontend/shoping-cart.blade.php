@@ -71,8 +71,8 @@
                     <div class="shoping__checkout">
                         <h5>Cart Total</h5>
                         <ul>
-                        <li>Subtotal <span>$ {{ number_format($subtotal, 2) }}</span></li>
-                        <li>Total <span>$ {{ number_format($total, 2) }}</span></li>
+                        <li>Subtotal <span>₹ {{ number_format($subtotal, 2) }}</span></li>
+                        <li>Total <span>₹ {{ number_format($total, 2) }}</span></li>
                         </ul>
                         <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
                     </div>
