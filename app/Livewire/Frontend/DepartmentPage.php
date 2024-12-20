@@ -3,25 +3,22 @@
 namespace App\Livewire\Frontend;
 
 use Livewire\Component;
-use App\Models\{Product,Cart};
+use App\Models\{Department,Product,Cart};
 use Illuminate\Support\Facades\Auth;
-class RelatedProduct extends Component
+class DepartmentPage extends Component
 {
-    public $recordId;
-    public $relatedProducts=[];
-    public $products=[];
+    public $departments=[],$products=[];
     protected $listeners = ['refreshComponent' => '$refresh'];
     public function render()
     {
-        return view('livewire.frontend.related-product');
+        return view('livewire.frontend.department');
     }
-    public function mount($recordId=null){
-        $this->products=Product::where('unique_id',$this->recordId)->first();
-        $this->relatedProducts = Product::where('department_id', $this->products->category_id)
-                            ->where('id', '!=', $this->products->id) // Exclude the current product
-                            ->limit(4)
-                            ->get();
-                           
+
+    public function mount($slug){
+        $this->departments=Department::orderBy('id','desc')->get();
+        $this->departmentFetch=Department::where('slug',$slug)->first();
+       
+        $this->products=Product::where('department_id',$this->departmentFetch->id)->get();
     }
     public function addToCart($productId)
     {

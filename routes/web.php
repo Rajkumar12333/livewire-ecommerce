@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{ProductController,FrontendController,DepartmentController,ColorController,SizeController,ContactController};
-Route::view('/', 'frontend.index');
+// Route::view('/', 'frontend.index');
 
 
 Route::view('dashboard', 'dashboard')
@@ -45,3 +45,6 @@ Route::post('/contact/store', [FrontendController::class, 'contact_store'])->nam
 Route::get('/shop-detail/{id}', [FrontendController::class, 'shop_detail'])->name("shop-detail");
 Route::get('/shoping-cart', [FrontendController::class, 'shoping_cart'])->name("shoping-cart");
 Route::get('/checkout', [FrontendController::class, 'checkout'])->name("checkout");
+Route::get('/department/{slug}', [FrontendController::class, 'department'])->name("department");
+
+Route::get('/', [FrontendController::class, 'index'])->name("index");

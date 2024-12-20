@@ -94,7 +94,7 @@
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <div class="filter__found">
-                                    <h6><span>16</span> Products found</h6>
+                                    <h6><span>{{count($product)}}</span> Products found</h6>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3">
@@ -112,10 +112,10 @@
                         <div class="product__item">
                             <!-- Wrap the product image in a link -->
                             <a href="{{ route('shop-detail', $data->unique_id) }}">
-                                <div class="product__item__pic set-bg" data-setbg="{{asset('storage/'.$data->image)}}">
+                                <div class="product__item__pic set-bg-1" style="background-image: url({{ asset('storage/'.$data->image)}});">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                        <li><a href="{{route('shop-detail',$data->unique_id)}}" ><i class="fa fa-retweet"></i></a></li>
                                         <li>
                                             <a href="#" wire:click.prevent="addToCart({{ $data->id }})">
                                                 <i class="fa fa-shopping-cart"></i>

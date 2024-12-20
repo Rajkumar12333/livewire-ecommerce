@@ -22,7 +22,7 @@ class Shop extends Component
         $query = Product::query();
 
         if ($this->category) {
-            $query->where('department_id', 2);
+            $query->where('department_id', $this->category);
         }
 
         if ($this->color) {
