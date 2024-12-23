@@ -17,8 +17,12 @@ class ShopDetails extends Component
         return view('livewire.frontend.shop-details');
     }
     public function mount($recordId=null){
+       
+        $this->recordId=$recordId;
+        
         $this->products=Product::where('unique_id',$this->recordId)->first();
         $this->carts=Cart::where('product_id',$this->products->id)->where('user_id',Auth::id())->first();
+        
     }
 
     public function increaseQuantity($cartItemId)
@@ -61,6 +65,11 @@ class ShopDetails extends Component
     }
     public function addToCart($productId)
     {
+        if (!Auth::check()) {
+            $this->dispatch('error', 'Please log in to purchase this product.');
+            return;
+        }
+       
         $product = Product::find($productId);
    
         if (!$product) {

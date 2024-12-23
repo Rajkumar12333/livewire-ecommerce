@@ -17,6 +17,7 @@ class FrontendController extends Controller
         return view("Frontend.contact");
     }
     public function shop_detail($id){
+      
         return view("Frontend.shop-detail",[
             'recordId'=>$id
         ]);

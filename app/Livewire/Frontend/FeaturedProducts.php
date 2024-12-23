@@ -33,6 +33,11 @@ class FeaturedProducts extends Component
     }
     public function addToCart($productId)
     {
+        if (!Auth::check()) {
+            $this->dispatch('error', 'Please log in to purchase this product.');
+            return;
+        }
+       
         $product = Product::find($productId);
    
         if (!$product) {
