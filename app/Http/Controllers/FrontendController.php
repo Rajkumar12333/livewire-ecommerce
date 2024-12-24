@@ -32,7 +32,9 @@ class FrontendController extends Controller
     public function department($slug){
         return view("Frontend.department",['slug'=>$slug]);
     }
-
+    public function wishlist(){
+        return view("Frontend.wishlist");
+    }
 
 }
 

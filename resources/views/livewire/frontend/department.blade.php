@@ -46,8 +46,12 @@
                             <div class="featured__item__pic set-bg-1" style="background-image: url({{ asset('storage/'.$data->image)}});">
 
                                     <ul class="featured__item__pic__hover">
-                                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                        <li>
+                                        <a wire:click.prevent="toggleWishlist({{ $data->id }})">
+                                            <i class="fa fa-heart" style="color: {{ in_array($data->id, $wishlistItems) ? 'red' : 'gray' }};"></i>
+                                        </a>        
+                                    </li>
+                                        <li><a href="{{route('shop-detail',$data->unique_id)}}"><i class="fa fa-retweet"></i></a></li>
                                         <li><a href="#" wire:click.prevent="addToCart({{ $data->id }})"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>

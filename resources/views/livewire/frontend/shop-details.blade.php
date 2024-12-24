@@ -44,7 +44,8 @@
                             </div>
                         </div>
                         <a href="#" wire:click.prevent="addToCart({{ $products->id }})" class="primary-btn">ADD TO CARD</a>
-                        <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                        <a href="#" wire:click.prevent="toggleWishlist({{ $products->id }})" class="heart-icon">           <i class="fa fa-heart" style="color: {{ in_array($products->id, $wishlistItems) ? 'red' : 'gray' }};"></i></a>
+                     
                         <ul>
                             <li><b>Availability</b> <span>In Stock</span></li>
                             <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>

@@ -46,5 +46,5 @@ Route::get('/shop-detail/{id}', [FrontendController::class, 'shop_detail'])->nam
 Route::get('/shoping-cart', [FrontendController::class, 'shoping_cart'])->name("shoping-cart");
 Route::get('/checkout', [FrontendController::class, 'checkout'])->name("checkout");
 Route::get('/department/{slug}', [FrontendController::class, 'department'])->name("department");
-
+Route::get('/wishlist', [FrontendController::class, 'wishlist'])->name("wishlist");
 Route::get('/', [FrontendController::class, 'index'])->name("index");

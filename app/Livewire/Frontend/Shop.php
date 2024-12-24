@@ -3,8 +3,9 @@
 namespace App\Livewire\Frontend;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
-use App\Models\{Department,Color,Product,Size,Cart};
+use App\Models\{Department,Color,Product,Size,Cart,Wishlist};
 use Livewire\WithPagination;
+
 class Shop extends Component
 {
     use WithPagination;
@@ -13,10 +14,12 @@ class Shop extends Component
     public $size = null;
 
     public $department=[];
+    public $wishlistItems = [];
     public $colors=[];
     public $product=[];
     public $sizes=[];
     public $latest_product=[];
+    protected $listeners = ['refreshComponent' => '$refresh'];
     public function render()
     {
         $query = Product::query();
@@ -54,6 +57,9 @@ class Shop extends Component
         $this->latest_product = Product::orderBy('id', 'desc')->take(6)->get();
         $this->sizes=Size::orderBy('id','desc')->get();
         $this->loadCart();
+        $this->wishlistItems = \App\Models\Wishlist::where('user_id', auth()->id())
+        ->pluck('product_id')
+        ->toArray();
     }
     public function updatedCategory($value)
     {
@@ -133,6 +139,47 @@ class Shop extends Component
     {
         $this->cart = Cart::where('user_id', Auth::id())->with('product')->get();
     }
+    public function addToWishlist($productId)
+    {
+        if (!Auth::check()) {
+            $this->dispatch('error', 'Please log in to purchase this product.');
+            return;
+        }
+       
+        Wishlist::firstOrCreate([
+            'user_id' => auth()->id(),
+            'product_id' => $productId,
+        ]);
 
+        $this->products = auth()->user()->wishlistProducts;
+        $this->dispatch('success', 'Product added to Whishlist');
+        $this->loadCart();
+        $this->dispatch('refreshComponent');
+    }
+    public function removeFromWishlist($productId)
+    {
+        Wishlist::where('user_id', auth()->id())
+            ->where('product_id', $productId)
+            ->delete();
+
+        $this->products = auth()->user()->wishlistProducts;
+        $this->dispatch('error', 'Product Removed to Whishlist');
+        $this->loadCart();
+        $this->dispatch('refreshComponent');
+    }
+    public function toggleWishlist($productId)
+    {
+        if (in_array($productId, $this->wishlistItems)) {
+            // If the product is already in the wishlist, remove it
+            $this->removeFromWishlist($productId);
+        } else {
+            // If the product is not in the wishlist, add it
+            $this->addToWishlist($productId);
+        }
+        $this->wishlistItems = \App\Models\Wishlist::where('user_id', auth()->id())
+        ->pluck('product_id')
+        ->toArray();
+    }
+    
 
 }
