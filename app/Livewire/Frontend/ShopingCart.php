@@ -58,13 +58,14 @@ class ShopingCart extends Component
             $product->delete();
 
             // Emit a success message to the frontend
-            $this->dispatch('success', 'Product removed from cart successfully!');
+            $this->dispatch('error', 'Product removed from cart successfully!');
             $this->dispatch('refreshComponent');
-            $this->CartCount = Cart::where('user_id', auth()->user()->id)->count();
+            return redirect()->to('/shoping-cart');
         } else {
             // Emit an error message to the frontend if product is not found
             $this->dispatch('error', 'Product not found in your cart!');
         }
+        $this->dispatch('reloadPage');
         
     }
 
@@ -83,6 +84,7 @@ class ShopingCart extends Component
         $this->dispatch('success', 'Product quantity increased.');
         $this->loadCart();
         $this->dispatch('refreshComponent');
+        $this->dispatch('reloadPage');
     }
     public function decreaseQuantity($cartItemId)
     {
@@ -105,6 +107,7 @@ class ShopingCart extends Component
     
         $this->loadCart();
         $this->dispatch('refreshComponent');
+        $this->dispatch('reloadPage');
     }
         
 }

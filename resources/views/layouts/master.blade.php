@@ -61,15 +61,7 @@
             <ul>
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="{{route('shop')}}">Shop</a></li>
-                <li><a href="#">Pages</a>
-                    <ul class="header__menu__dropdown">
-                        <li><a href="#">Shop Details</a></li>
-                        <li><a href="#">Shoping Cart</a></li>
-                        <li><a href="#">Check Out</a></li>
-                        <li><a href="#">Blog Details</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">Blog</a></li>
+               
                 <li><a href="{{route('contact')}}">Contact</a></li>
             </ul>
         </nav>
@@ -139,15 +131,7 @@
                         <ul>
                             <li class="{{ request()->routeIs('index') ? 'active' : '' }}"><a href="/" >Home</a></li>
                             <li class="{{ request()->routeIs('shop') ? 'active' : '' }}"><a href="{{route('shop')}}" >Shop</a></li>
-                            <li><a href="#">Pages</a>
-                                <ul class="header__menu__dropdown">
-                                    <li><a href="#">Shop Details</a></li>
-                                    <li><a href="#">Shoping Cart</a></li>
-                                    <li><a href="#">Check Out</a></li>
-                                    <li><a href="#">Blog Details</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">Blog</a></li>
+                           
                             <li class="{{ request()->routeIs('contact') ? 'active' : '' }}"><a href="{{route('contact')}}">Contact</a></li>
                         </ul>
                     </nav>
@@ -275,6 +259,13 @@
             "timeOut": 5000
         });
     });
+    Livewire.on('redirectBack', () => {
+        window.history.back();
+    });
+    Livewire.on('reloadPage', () => {
+        location.reload(); // This will reload the current page
+    });
+    
 </script>
 
 </body>

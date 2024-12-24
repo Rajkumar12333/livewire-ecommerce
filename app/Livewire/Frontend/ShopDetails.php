@@ -41,6 +41,10 @@ class ShopDetails extends Component
 
     public function increaseQuantity($cartItemId)
     {
+        if ($cartItemId=="0") {
+            $this->dispatch('error', 'Product not available in the cart');
+            return;
+        }
         $cartItem = Cart::find($cartItemId);
 
         if (!$cartItem || $cartItem->user_id !== Auth::id()) {
@@ -53,6 +57,7 @@ class ShopDetails extends Component
 
         $this->dispatch('success', 'Product quantity increased.');
         $this->dispatch('refreshComponent');
+        $this->dispatch('reloadPage');
     }
 
     public function decreaseQuantity($cartItemId)
@@ -74,6 +79,7 @@ class ShopDetails extends Component
         }
 
         $this->dispatch('refreshComponent');
+        $this->dispatch('reloadPage');
     }
 
     public function addToCart($productId)
@@ -108,10 +114,12 @@ class ShopDetails extends Component
 
         $this->dispatch('success', 'Product added to cart');
         $this->dispatch('refreshComponent');
+        $this->dispatch('reloadPage');
     }
 
     public function addToWishlist($productId)
     {
+        
         if (!Auth::check()) {
             $this->dispatch('error', 'Please log in to purchase this product.');
             return;
@@ -124,6 +132,7 @@ class ShopDetails extends Component
 
         $this->dispatch('success', 'Product added to Wishlist');
         $this->dispatch('refreshComponent');
+        $this->dispatch('reloadPage');
     }
 
     public function removeFromWishlist($productId)
@@ -134,6 +143,7 @@ class ShopDetails extends Component
 
         $this->dispatch('error', 'Product removed from Wishlist');
         $this->dispatch('refreshComponent');
+        $this->dispatch('reloadPage');
     }
 
     public function toggleWishlist($productId)
@@ -146,9 +156,6 @@ class ShopDetails extends Component
             $this->addToWishlist($productId);
         }
 
-        // Refresh wishlist items after toggling
-        $this->wishlistItems = Wishlist::where('user_id', auth()->id())
-                                       ->pluck('product_id')
-                                       ->toArray();
+      
     }
 }

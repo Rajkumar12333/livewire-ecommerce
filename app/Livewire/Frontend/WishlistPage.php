@@ -31,6 +31,7 @@ class WishlistPage extends Component
 
         $this->dispatch('success', 'Product added to Wishlist');
         $this->dispatch('refreshComponent');
+        $this->dispatch('reloadPage');
     }
 
     public function removeFromWishlist($productId)
@@ -41,6 +42,7 @@ class WishlistPage extends Component
 
         $this->dispatch('error', 'Product removed from Wishlist');
         $this->dispatch('refreshComponent');
+        $this->dispatch('reloadPage');
     }
 
     public function toggleWishlist($productId)

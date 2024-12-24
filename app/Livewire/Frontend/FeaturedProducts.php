@@ -67,7 +67,7 @@ class FeaturedProducts extends Component
         $this->dispatch('success', 'Product added to cart');
        
         $this->dispatch('refreshComponent');
-       
+        $this->dispatch('reloadPage');
     }
     public function addToWishlist($productId)
     {
@@ -85,6 +85,7 @@ class FeaturedProducts extends Component
         $this->dispatch('success', 'Product added to Whishlist');
       
         $this->dispatch('refreshComponent');
+        $this->dispatch('reloadPage');
     }
     public function removeFromWishlist($productId)
     {
@@ -96,6 +97,7 @@ class FeaturedProducts extends Component
         $this->dispatch('error', 'Product Removed to Whishlist');
       
         $this->dispatch('refreshComponent');
+        $this->dispatch('reloadPage');
     }
     public function toggleWishlist($productId)
     {

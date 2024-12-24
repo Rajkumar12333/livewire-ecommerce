@@ -56,6 +56,6 @@ class RelatedProduct extends Component
         $this->dispatch('success', 'Product added to cart');
        
         $this->dispatch('refreshComponent');
-       
+        $this->dispatch('reloadPage');
     }
 }

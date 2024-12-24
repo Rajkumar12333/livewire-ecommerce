@@ -37,9 +37,9 @@
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
-                                <span class="dec qtybtn" wire:click="decreaseQuantity({{$carts->id??''}})">-</span>
+                                <span class="dec qtybtn" wire:click="decreaseQuantity({{$carts->id??'0'}})">-</span>
                                     <input type="text" value="{{$carts->quantity??'1'}}">
-                                    <span class="inc qtybtn" wire:click="increaseQuantity({{$carts->id??''}})">+</span>
+                                    <span class="inc qtybtn" wire:click="increaseQuantity({{$carts->id??'0'}})">+</span>
                                 </div>
                             </div>
                         </div>

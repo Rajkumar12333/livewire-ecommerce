@@ -1,7 +1,8 @@
 <div>
 
-     @if(!empty($wishlistProducts))
+
     <div class="row">
+    @if(!empty($wishlistProducts) && count($wishlistProducts)>0)
     @foreach($wishlistProducts as $product)
                                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="product__item">
@@ -31,7 +32,11 @@
                         </div>
                   
                     @endforeach
-    
+    @else
+    <div class="col-lg-12 col-md-6 col-sm-6 no-records">
+        <p style="text-align:center;">No records found</p>
     </div>
     @endif
+    </div>
+ 
 </div>
