@@ -80,7 +80,7 @@
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-7">
-                    
+                    <livewire:frontend.shop-search />
                     <div class="filter__item">
                         <div class="row">
                             <div class="col-lg-4 col-md-5">

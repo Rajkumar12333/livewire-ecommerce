@@ -242,8 +242,7 @@
 <!-- Include Toastr JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
-<!-- Livewire Script -->
-@livewireScripts
+
 
 <script>
     // Listen for the 'productRemoved' event from Livewire
@@ -267,7 +266,7 @@
     });
     
 </script>
-
+@livewireScripts
 </body>
 
 </html>
