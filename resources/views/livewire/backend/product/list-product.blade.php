@@ -1,9 +1,4 @@
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
+
 
 <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -39,9 +34,10 @@
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900">
             <a href="{{route('add-products')}}" class="btn btn-success" wire:navigate>Add</a>
-            <table id="example" class="table table-striped" style="width:100%">
+            <table id="product-table" class="table table-striped" style="width:100%">
         <thead>
             <tr>
+            <th>ID</th>
                 <th>Title</th>
                 <th>Description</th>
                  <th>Image</th>
@@ -49,23 +45,11 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($products as $product)
-            <tr>
-                <td>{{$product->title}}</td>
-                <td>{{$product->description}}</td>
-                <td><img src="{{asset('storage/'.$product->image)}}" alt="" height="100px;" width="100px; "></td>
-                <td>
-                <a href="{{ route('edit-products', $product->id) }}" wire:navigate><i class="fa-solid fa-pen-to-square"></i></a>
-
-                <button type="submit" wire:click.prevent="delete('{{ $product->id }}')">
-                <i class="fa-solid fa-trash"></i>
-                </button>
-                </td>
-            </tr>
-            @endforeach
+          
             </tbody>
         <tfoot>
             <tr>
+                <th>ID</th>
                 <th>Title</th>
                 <th>Description</th>
                  <th>Image</th>
@@ -78,9 +62,33 @@
         </div>
     </div>
 </div>
-<script>
- 
-   
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#product-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('users.getProduct') }}",
+                type: "GET",
+                dataSrc: function (json) {
+                    console.log("Data received:", json); // Debug log
+                    return json.data;
+                },
+                error: function(xhr, error, thrown) {
+                    console.error("DataTable Error:", xhr, error, thrown); // Log errors
+                }
+            },
+            columns: [
+                { data: 'id', name: 'id' },
+                { data: 'title', name: 'title' },
+                { data: 'description', name: 'description' },
+                { data: 'image', name: 'image' },
+               { data: 'action', name: 'action', orderable: false, searchable: false }
+            ]
+        });
+       
+    });
 
 </script>
 

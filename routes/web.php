@@ -53,3 +53,4 @@ Route::get('/department/{slug}', [FrontendController::class, 'department'])->nam
 Route::get('/wishlist', [FrontendController::class, 'wishlist'])->name("wishlist");
 Route::get('/', [FrontendController::class, 'index'])->name("index");
 Route::get('/users/get-users', [UserController::class, 'getUsers'])->name('users.getUsers');
+Route::get('/users/get-product', [ProductController::class, 'getProduct'])->name('users.getProduct');

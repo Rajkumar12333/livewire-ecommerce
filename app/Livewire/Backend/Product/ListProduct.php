@@ -6,29 +6,26 @@ use Livewire\Component;
 use App\Models\Product;
 class ListProduct extends Component
 {
-    public $deleteId = '';
     protected $listeners = [
         'refreshComponent' => '$refresh',
     ];
     public function render()
     {
-        $products=Product::orderBy('id','desc')->get();
+        // $products=Product::orderBy('id','desc')->get();
         return view('livewire.backend.product.list-product',[
-            'products'=>$products
+            // 'products'=>$products
         ]);
     }
 
-    public function deleteId($id)
-    {
-        $this->deleteId = $id;
-    }
+ 
     /**
      * Write code on Method
      *
      * @return response()
      */
-    public function delete()
+    public function delete($id)
     {
-        User::find($this->deleteId)->delete();
+        Product::find($id)->delete();
+        return redirect()->route('list-products');
     }
 }

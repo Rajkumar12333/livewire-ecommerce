@@ -261,7 +261,7 @@
     Livewire.on('reloadPage', () => {
         location.reload(); // This will reload the current page
     });
-    
+
 </script>
 
 </body>
