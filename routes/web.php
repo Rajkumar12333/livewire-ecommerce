@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{ProductController,FrontendController,DepartmentController,ColorController,SizeController,ContactController};
+use App\Http\Controllers\{ProductController,FrontendController,DepartmentController,ColorController,SizeController,ContactController,UserController};
 // Route::view('/', 'frontend.index');
-
+use App\Livewire\Table\UserDatatables;
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -37,6 +37,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/edit-size/{id}', [SizeController::class, 'edit_page'])->name("edit-size");
     Route::get('/delete-size/{id}', [SizeController::class, 'destroy'])->name("delete-size");
     Route::get('/contact', [ContactController::class, 'list_page'])->name("list-contact");
+
+    Route::get('/users', UserDatatables::class);
+    
+   
 });
 });
 Route::get('/shop', [FrontendController::class, 'shop'])->name("shop");
@@ -48,3 +52,4 @@ Route::get('/checkout', [FrontendController::class, 'checkout'])->name("checkout
 Route::get('/department/{slug}', [FrontendController::class, 'department'])->name("department");
 Route::get('/wishlist', [FrontendController::class, 'wishlist'])->name("wishlist");
 Route::get('/', [FrontendController::class, 'index'])->name("index");
+Route::get('/users/get-users', [UserController::class, 'getUsers'])->name('users.getUsers');

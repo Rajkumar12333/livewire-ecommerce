@@ -20,11 +20,7 @@ class ContactForm extends Component
         $product->ip = request()->ip();
         $product->agent =request()->userAgent();
         $product->save();
-        $this->dispatch('swal', [
-            'title' => 'Item has been removed.',
-            'icon' => 'success',
-            'iconColor' => 'blue',
-        ]);
+        $this->dispatch('success', 'Form Submitted Successfully');
         $this->dispatch('redirect', route('contact'));
     }
 }
