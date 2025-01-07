@@ -60,19 +60,22 @@
 <!-- Livewire Script -->
 @livewireScripts
 <script>
-        document.addEventListener('livewire:load', function () {
-            // Reinitialize DataTables after Livewire components are rendered
-            $('#users-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: '{{ route("users.getUsers") }}', // Adjust to your route
-                columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'name', name: 'name' },
-                    { data: 'email', name: 'email' },
-                ],
-            });
+     document.addEventListener('livewire:load', function () {
+    // Ensure DataTable is not initialized multiple times
+    if (!$.fn.DataTable.isDataTable('#users-table')) {
+        $('#users-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '{{ route("users.getUsers") }}', // Adjust to your route
+            columns: [
+                { data: 'id', name: 'id' },
+                { data: 'name', name: 'name' },
+                { data: 'email', name: 'email' },
+            ],
         });
+    }
+});
+
     </script>
 <script>
     

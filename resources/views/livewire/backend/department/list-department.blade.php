@@ -38,15 +38,12 @@
 
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900">
-            <a href="{{route('add-department')}}" class="btn btn-success">Add</a>
+            <a href="{{route('add-department')}}" class="btn btn-success" wire:navigate>Add</a>
             <table id="example" class="table table-striped" style="width:100%">
         <thead>
             <tr>
                 <th>Title</th>
                 <th>Description</th>
-                <!-- <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th> -->
                 <th>Action</th>
             </tr>
         </thead>
@@ -55,11 +52,9 @@
             <tr>
                 <td>{{$product->title}}</td>
                 <td>{{$product->description}}</td>
-                <!-- <td>Edinburgh</td>
-                <td>61</td>
-                <td>2011-04-25</td> -->
+
                 <td>
-                <a href="{{ route('edit-department', $product->id) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a href="{{ route('edit-department', $product->id) }}" wire:navigate><i class="fa-solid fa-pen-to-square"></i></a>
 
                 <button type="submit" wire:click.prevent="delete('{{ $product->id }}')">Delete</button>
                 </td>
@@ -70,9 +65,6 @@
             <tr>
                 <th>Title</th>
                 <th>Description</th>
-                <!-- <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th> -->
                 <th>Action</th>
             </tr>
         </tfoot>
@@ -83,9 +75,9 @@
     </div>
 </div>
 <script>
-    new DataTable('#example');
+    // new DataTable('#example');
 
-
+    document.querySelector('#example').classList.add('dataTable-initialized');
 </script>
 
 

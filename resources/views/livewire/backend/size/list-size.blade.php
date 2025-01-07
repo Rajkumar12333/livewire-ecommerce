@@ -43,10 +43,7 @@
         <thead>
             <tr>
                 <th>Title</th>
-                <!-- <th>Description</th> -->
-                <!-- <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th> -->
+              
                 <th>Action</th>
             </tr>
         </thead>
@@ -54,10 +51,7 @@
             @foreach($products as $product)
             <tr>
                 <td>{{$product->title}}</td>
-                <!-- <td>{{$product->description}}</td> -->
-                <!-- <td>Edinburgh</td>
-                <td>61</td>
-                <td>2011-04-25</td> -->
+               
                 <td>
                 <a href="{{ route('edit-size', $product->id) }}"><i class="fa-solid fa-pen-to-square"></i></a>
 
@@ -69,10 +63,7 @@
         <tfoot>
             <tr>
                 <th>Title</th>
-                <!-- <th>Description</th> -->
-                <!-- <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th> -->
+              
                 <th>Action</th>
             </tr>
         </tfoot>

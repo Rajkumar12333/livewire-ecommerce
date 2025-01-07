@@ -38,15 +38,13 @@
 
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900">
-            <a href="{{route('add-products')}}" class="btn btn-success">Add</a>
+            <a href="{{route('add-products')}}" class="btn btn-success" wire:navigate>Add</a>
             <table id="example" class="table table-striped" style="width:100%">
         <thead>
             <tr>
                 <th>Title</th>
                 <th>Description</th>
                  <th>Image</th>
-                <!--<th>Age</th>
-                <th>Start date</th> -->
                 <th>Action</th>
             </tr>
         </thead>
@@ -56,10 +54,8 @@
                 <td>{{$product->title}}</td>
                 <td>{{$product->description}}</td>
                 <td><img src="{{asset('storage/'.$product->image)}}" alt="" height="100px;" width="100px; "></td>
-                <!-- <td>61</td>
-                <td>2011-04-25</td> -->
                 <td>
-                <a href="{{ route('edit-products', $product->id) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a href="{{ route('edit-products', $product->id) }}" wire:navigate><i class="fa-solid fa-pen-to-square"></i></a>
 
                 <button type="submit" wire:click.prevent="delete('{{ $product->id }}')">
                 <i class="fa-solid fa-trash"></i>
@@ -73,8 +69,6 @@
                 <th>Title</th>
                 <th>Description</th>
                  <th>Image</th>
-                <!--<th>Age</th>
-                <th>Start date</th> -->
                 <th>Action</th>
             </tr>
         </tfoot>
@@ -85,8 +79,8 @@
     </div>
 </div>
 <script>
-    new DataTable('#example');
-
+ 
+   
 
 </script>
 

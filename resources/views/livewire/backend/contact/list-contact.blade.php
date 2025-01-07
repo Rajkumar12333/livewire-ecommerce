@@ -38,16 +38,12 @@
 
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900">
-            <!-- <a href="{{route('add-color')}}" class="btn btn-success">Add</a> -->
             <table id="example" class="table table-striped" style="width:100%">
         <thead>
             <tr>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Message</th>
-                <!-- <th>Age</th>
-                <th>Start date</th> -->
-                <!-- <th>Action</th> -->
             </tr>
         </thead>
         <tbody>
@@ -56,13 +52,7 @@
                 <td>{{$product->name}}</td>
                 <td>{{$product->email}}</td>
                 <td>{{$product->message}}</td>
-                 <!--<td>61</td>
-                <td>2011-04-25</td> -->
-                <!-- <td>
-                <a href="{{ route('edit-color', $product->id) }}"><i class="fa-solid fa-pen-to-square"></i></a>
-
-                <button type="submit" wire:click.prevent="delete('{{ $product->id }}')">Delete</button>
-                </td> -->
+       
             </tr>
             @endforeach
             </tbody>
@@ -71,9 +61,7 @@
                 <th>Title</th>
                 <th>Email</th>
                  <th>Message</th>
-              <!--  <th>Age</th>
-                <th>Start date</th> -->
-                <!-- <th>Action</th> -->
+
             </tr>
         </tfoot>
     </table>

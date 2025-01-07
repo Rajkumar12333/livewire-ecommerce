@@ -18,7 +18,9 @@
                         <input type="file" wire:model="image">
                         <input type="hidden" wire:model="prev_image">
                         @error('photo') <span class="error">{{ $message }}</span> @enderror
+                        @if(!empty($image))
                         <img src="{{'/storage/'.$image}}" height="100px" width="100px" alt="">
+                        @endif
                         </div>
                         <div class="form-group">
                             <label for="">Description</label>

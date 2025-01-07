@@ -54,7 +54,7 @@
                 </ul>
             </div>
             <div class="header__top__right__auth">
-                <a href="{{route('dashboard')}}"><i class="fa fa-user"></i> Login</a>
+                <a href="{{route('dashboard')}}" wire:navigate><i class="fa fa-user"></i> Login</a>
             </div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
@@ -112,7 +112,7 @@
                                 </ul>
                             </div>
                             <div class="header__top__right__auth">
-                                <a href="{{route('dashboard')}}"><i class="fa fa-user"></i> Login</a>
+                                <a href="{{route('dashboard')}}" wire:navigate><i class="fa fa-user"></i> Login</a>
                             </div>
                         </div>
                     </div>
@@ -129,18 +129,17 @@
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li class="{{ request()->routeIs('index') ? 'active' : '' }}"><a href="/" >Home</a></li>
-                            <li class="{{ request()->routeIs('shop') ? 'active' : '' }}"><a href="{{route('shop')}}" >Shop</a></li>
-                           
-                            <li class="{{ request()->routeIs('contact') ? 'active' : '' }}"><a href="{{route('contact')}}">Contact</a></li>
+                            <li class="{{ request()->routeIs('index') ? 'active' : '' }}" ><a href="/" wire:navigate >Home</a></li>
+                            <li class="{{ request()->routeIs('shop') ? 'active' : '' }}"><a href="{{route('shop')}}" wire:navigate>Shop</a></li>
+                            <li class="{{ request()->routeIs('contact') ? 'active' : '' }}"><a href="{{route('contact')}}" wire:navigate>Contact</a></li>
                         </ul>
                     </nav>
                 </div>
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="{{route('wishlist')}}"><i class="fa fa-heart"></i> <span>{{$UserWishlistCount}}</span></a></li>
-                            <li><a href="{{route('shoping-cart')}}"><i class="fa fa-shopping-bag"></i> <span>{{$CartCount}}</span></a></li>
+                            <li><a href="{{route('wishlist')}}" wire:navigate><i class="fa fa-heart"></i> <span>{{$UserWishlistCount}}</span></a></li>
+                            <li><a href="{{route('shoping-cart')}}" wire:navigate><i class="fa fa-shopping-bag"></i> <span>{{$CartCount}}</span></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>$150.00</span></div>
                     </div>
@@ -215,9 +214,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="footer__copyright">
-                        <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
+            
                         <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
                     </div>
                 </div>
