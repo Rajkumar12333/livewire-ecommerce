@@ -8,7 +8,7 @@ class ProductScroll extends Component
 {
     public $products=[];
     public function mount(){
-        $this->products=Product::get();
+        $this->products=Product::orderBy('id', 'desc')->get();
     }
     public function render()
     {

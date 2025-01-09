@@ -14,6 +14,10 @@
                             <label for="">Title</label>
                             <input type="text" class="form-control" wire:model="title"> <!-- Bind with wire:model -->
                         </div>
+                        <div class="form-group">
+                            <label for="">Color code</label>
+                            <input type="text" class="form-control" wire:model="color_code"> <!-- Bind with wire:model -->
+                        </div>
                        
                         <button type="submit" class="btn btn-success ms-auto">Save</button> 
                     </div>

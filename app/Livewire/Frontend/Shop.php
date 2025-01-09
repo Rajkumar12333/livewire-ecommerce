@@ -19,11 +19,13 @@ class Shop extends Component
     public $product=[];
     public $sizes=[];
     public $latest_product=[];
+    public $minPrice = 1;
+    public $maxPrice = 600;
     protected $listeners = ['refreshComponent' => '$refresh'];
     public function render()
     {
         $query = Product::query();
-
+        $query->whereBetween('price', [$this->minPrice, $this->maxPrice]);
         if ($this->category) {
             $query->where('department_id', $this->category);
         }
@@ -38,15 +40,10 @@ class Shop extends Component
 
         $this->product = $query->orderBy('id', 'desc')->get();
 
-        return view('livewire.frontend.shop',[
-            'department'=>$this->department,
-            'colors'=>$this->colors,
-            'product'=>$this->product,
-            'sizes'=>$this->sizes,
-            // 'latest_product'=>$this->latest_product
-        ]);
+        return view('livewire.frontend.shop');
     }
     public function mount(){
+       
         $this->category = request()->get('category', null);
         $this->color = request()->get('color', null);
         $this->size = request()->get('size', null);
@@ -66,38 +63,46 @@ class Shop extends Component
         $this->filterProducts();
     }
 
-    public function updatedColor($value)
+    public function colorChange($value)
     {
+        $this->color=$value;
         $this->filterProducts();
     }
 
     public function updatedSize($value)
     {
+        $this->size=$value;
+        $this->filterProducts();
+    }
+    public function updatedMinPrice($value)
+    {
+      
         $this->filterProducts();
     }
     public function filterProducts()
     {
-        // // Start building the query
-        // $query = Product::query();
+        // Start building the query
+        $query = Product::query();
+     
+        $query->whereBetween('price', [$this->minPrice, $this->maxPrice]);
+        // Apply filters if they exist
+        if ($this->category) {
+            $query->where('department_id', $this->category);
+        }
+        if ($this->color) {
+            $query->where('color_id', $this->color);
+        }
+        if ($this->size) {
+            $query->where('size_id', $this->size);
+        }
     
-        // // Apply filters if they exist
-        // if ($this->category) {
-        //     $query->where('department_id', $this->category);
-        // }
-        // if ($this->color) {
-        //     $query->where('color_id', $this->color);
-        // }
-        // if ($this->size) {
-        //     $query->where('size_id', $this->size);
-        // }
+        // Output the SQL query string for debugging
+        // dd($query->toSql(), $query->getBindings());
     
-        // // Output the SQL query string for debugging
-        // // dd($query->toSql(), $query->getBindings());
+        // Execute the query and update the products list
+        $this->product = $query->get();
     
-        // // Execute the query and update the products list
-        // $this->product = $query->get();
-    
-        // // For debugging, you can uncomment the following line
+        // For debugging, you can uncomment the following line
         // // dd($this->product);
     }
     public function addToCart($productId)
@@ -183,5 +188,11 @@ class Shop extends Component
         ->toArray();
     }
     
-
+    public function resetValues(){
+        $this->size="";
+        $this->category="";
+        $this->color="";
+        $this->color=1;
+        $this->color=600;
+    }
 }

@@ -27,8 +27,8 @@ class FeaturedProducts extends Component
     public function render()
     {
         $feature_products = $this->filter === '*'
-            ? Product::all()
-            : Product::where('department_id', $this->filter)->get();
+            ? Product::orderBy('id', 'desc')->get()
+            : Product::orderBy('id', 'desc')->where('department_id', $this->filter)->get();
 
         $departmnet = Department::all(); // Use all() for consistency
 
