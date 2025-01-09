@@ -62,35 +62,73 @@
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-    $(document).ready(function() {
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    function loadTable() {
+        if ($.fn.DataTable.isDataTable('#product-table')) {
+            $('#product-table').DataTable().destroy(); // Destroy the existing DataTable instance
+            $('#product-table tbody').empty(); // Clear the table body to prevent duplication
+        }
+
         $('#product-table').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('users.getProduct') }}",
+                url: "{{ route('users.getProduct') }}", // Adjust route if necessary
                 type: "GET",
                 dataSrc: function (json) {
                     console.log("Data received:", json); // Debug log
-                    return json.data;
+                    return json.data; // Ensure only the data array is returned
                 },
-                error: function(xhr, error, thrown) {
-                    console.error("DataTable Error:", xhr, error, thrown); // Log errors
+                error: function (xhr, error, thrown) {
+                    console.error("DataTable Error:", xhr, error, thrown); // Log any errors
                 }
             },
             columns: [
                 { data: 'id', name: 'id' },
                 { data: 'title', name: 'title' },
                 { data: 'description', name: 'description' },
-                { data: 'image', name: 'image' },
-               { data: 'action', name: 'action', orderable: false, searchable: false }
-            ]
+                { data: 'image', name: 'image', orderable: false, searchable: false },
+                { data: 'action', name: 'action', orderable: false, searchable: false }
+            ],
+            responsive: true, // Makes the table responsive
+            lengthChange: true, // Enable changing number of rows displayed
+            pageLength: 10, // Default number of rows
+            dom: 'Bfrtip', // Add buttons
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    text: 'Excel <i class="fa-regular fa-file-excel"></i>',
+                    className: 'btn btn-success btn-sm'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: 'Expor PDF <i class="fa-solid fa-file-pdf"></i>',
+                    className: 'btn btn-danger btn-sm'
+                },
+                {
+                    extend: 'print',
+                    text: 'Print <i class="fa-solid fa-print"></i>',
+                    className: 'btn btn-info btn-sm'
+                }
+            ],
+            language: {
+                paginate: {
+                    previous: '&laquo;',
+                    next: '&raquo;'
+                }
+            }
         });
-       
+    }
+   
+    document.addEventListener("DOMContentLoaded", function () {
+        loadTable(); // Initialize DataTable on initial page load
     });
-
+    loadTable();
 </script>
+
+
 
 
 

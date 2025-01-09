@@ -13,4 +13,10 @@ class ListDepartment extends Component
             'products'=>$products
         ]);
     }
+    public function delete($id)
+    {
+        Department::find($id)->delete();
+        $this->dispatch('error', 'Department Deleted');
+        return redirect()->route('list-department');
+    }
 }

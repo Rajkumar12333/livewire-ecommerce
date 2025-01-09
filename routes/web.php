@@ -40,7 +40,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/users', UserDatatables::class);
     
-   
+    Route::get('/users/get-users', [UserController::class, 'getUsers'])->name('users.getUsers');
+    Route::get('/get-product', [ProductController::class, 'getProduct'])->name('users.getProduct');
+    Route::get('/get-department', [DepartmentController::class, 'getDepartment'])->name('users.getDepartment');
+    Route::get('/get-color', [ColorController::class, 'getColor'])->name('users.getColor');
+    Route::get('/get-size', [SizeController::class, 'getSize'])->name('users.getSize');
+    Route::get('/get-contact', [ContactController::class, 'getContact'])->name('users.getContact');
 });
 });
 Route::get('/shop', [FrontendController::class, 'shop'])->name("shop");
@@ -52,5 +57,3 @@ Route::get('/checkout', [FrontendController::class, 'checkout'])->name("checkout
 Route::get('/department/{slug}', [FrontendController::class, 'department'])->name("department");
 Route::get('/wishlist', [FrontendController::class, 'wishlist'])->name("wishlist");
 Route::get('/', [FrontendController::class, 'index'])->name("index");
-Route::get('/users/get-users', [UserController::class, 'getUsers'])->name('users.getUsers');
-Route::get('/users/get-product', [ProductController::class, 'getProduct'])->name('users.getProduct');

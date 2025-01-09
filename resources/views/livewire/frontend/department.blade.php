@@ -43,7 +43,7 @@
                         @foreach($products as $data)
                         <div class="col-lg-3 col-md-4 col-sm-6 mix 2">
                             <div class="featured__item">
-                            <div class="featured__item__pic set-bg-1" style="background-image: url({{ asset('storage/'.$data->image)}});">
+                            <div class="featured__item__pic set-bg-1" style="background-image: url({{ asset('storage/'.($data->image ?? 'images/default.png'))}});">
 
                                     <ul class="featured__item__pic__hover">
                                         <li>

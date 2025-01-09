@@ -26,6 +26,7 @@ class ListProduct extends Component
     public function delete($id)
     {
         Product::find($id)->delete();
+        $this->dispatch('error', 'Product Deleted');
         return redirect()->route('list-products');
     }
 }

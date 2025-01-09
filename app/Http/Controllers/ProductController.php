@@ -26,23 +26,47 @@ class ProductController extends Controller
         $post = Product::findOrFail($id);
         $post->delete();
     }
+  
     public function getProduct(Request $request)
     {
-        $Product = Product::query();
+        // Query the Product model and apply ordering
+        $query = Product::query()->orderBy('id', 'desc');
+    
+        // Apply global search if a search value is provided
+        if ($request->has('search') && $searchValue = $request->input('search.value')) {
+            $query->where('title', 'like', "%{$searchValue}%"); // Assuming 'title' is the searchable field
+        }
+    
+        // Get total records before pagination
+        $totalRecords = $query->count();
+    
+        // Apply pagination based on 'start' and 'length' parameters from the request
+        $products = $query->skip($request->input('start', 0))
+                          ->take($request->input('length', 10)) // Default to 10 records per page
+                          ->get();
+    
+        // Return data in the format DataTables expects
+        return response()->json([
+            'draw' => $request->input('draw'), // Pass through the 'draw' parameter
+            'recordsTotal' => $totalRecords, // Total records in the database
+            'recordsFiltered' => $totalRecords, // Total records after filtering (you can update this if needed)
+            'data' => $products->map(function ($product) {
+                return [
+                    'id' => $product->id,
+                    'title' => $product->title,
+                    'description' => $product->description,
+                  'image' => '<img src="' . asset('storage/' . ($product->image ?? 'images/default.png')) . '" alt="Product Image" style="width: 50px; height: 50px; object-fit: cover;">',
 
-        return DataTables::of($Product)
-            ->addColumn('image', function ($Product) {
-                $imagePath = asset('storage/' . $Product->image); // Adjust path as needed
-                return '<img src="' . $imagePath . '" alt="Product Image" style="width: 50px; height: 50px; object-fit: cover;">';
-            })
-            ->addColumn('action', function ($Product) {
-                return '<a class="btn btn-sm btn-primary" href="' . route('edit-products', ['id' => $Product->id]) . '" wire:navigate><i class="fa-solid fa-pen-to-square"></i></a>
-                <button type="button" class="btn btn-sm btn-danger" wire:click.prevent="delete(' . $Product->id . ')">
-                    <i class="fa-solid fa-trash"></i>
-                </button>';
-            })
-            ->rawColumns(['image', 'action']) // Ensure the image and action columns render HTML
-            ->make(true);
+                    'action' => '<a class="btn btn-sm btn-primary" href="' . route('edit-products', ['id' => $product->id]) . '">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                                <button type="button" class="btn btn-sm btn-danger" onclick="deleteProduct(' . $product->id . ')">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>',
+                ];
+            }),
+        ]);
     }
+    
 
 }

@@ -5,7 +5,7 @@
                 <div class="categories__slider owl-carousel">
                     @foreach($products as $data)
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="{{asset('storage/'.$data->image)}}">
+                        <div class="categories__item set-bg" data-setbg="{{asset('storage/'.($data->image ?? 'images/default.png'))}}">
                             <h5><a href="{{route('shop-detail',$data->unique_id)}}">{{$data->title}}</a></h5>
                         </div>
                     </div>

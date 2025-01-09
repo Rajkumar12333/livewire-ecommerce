@@ -15,7 +15,7 @@ class UserController extends Controller
     }
     public function getUsers(Request $request)
     {
-        $users = Product::query();
+        $users = User::query();
     
         return DataTables::of($users)
             // ->addColumn('action', function ($user) {

@@ -1,9 +1,9 @@
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css"> -->
 
 <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -39,32 +39,24 @@
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900">
             <a href="{{route('add-department')}}" class="btn btn-success" wire:navigate>Add</a>
-            <table id="example" class="table table-striped" style="width:100%">
+            <table id="department-table" class="table table-striped" style="width:100%">
         <thead>
             <tr>
+
+            <th>Id</th>
                 <th>Title</th>
-                <th>Description</th>
+                <!-- <th>Description</th> -->
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($products as $product)
-            <tr>
-                <td>{{$product->title}}</td>
-                <td>{{$product->description}}</td>
-
-                <td>
-                <a href="{{ route('edit-department', $product->id) }}" wire:navigate><i class="fa-solid fa-pen-to-square"></i></a>
-
-                <button type="submit" wire:click.prevent="delete('{{ $product->id }}')">Delete</button>
-                </td>
-            </tr>
-            @endforeach
+           
             </tbody>
         <tfoot>
             <tr>
+            <th>Id</th>
                 <th>Title</th>
-                <th>Description</th>
+                <!-- <th>Description</th> -->
                 <th>Action</th>
             </tr>
         </tfoot>
@@ -74,11 +66,69 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    // new DataTable('#example');
+    function loadtable() {
+        if ($.fn.DataTable.isDataTable('#department-table')) {
+            $('#department-table').DataTable().destroy(); // Destroy the existing DataTable instance
+            $('#department-table').empty(); // Clear the table to prevent duplication
+        }
 
-    document.querySelector('#example').classList.add('dataTable-initialized');
+        $('#department-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('users.getDepartment') }}",
+                type: "GET",
+                dataSrc: function (json) {
+                    console.log("Data received:", json); // Debug log
+                    return json.data; // Ensure only the data array is returned
+                },
+                error: function (xhr, error, thrown) {
+                    console.error("DataTable Error:", xhr, error, thrown); // Log any errors
+                }
+            },
+            columns: [
+                { data: 'id', name: 'id' },
+                { data: 'title', name: 'title' },
+                // { data: 'description', name: 'description' },
+             
+                { data: 'action', name: 'action', orderable: false, searchable: false }
+            ],
+            responsive: true, // Makes the table responsive
+            lengthChange: true, // Enable changing number of rows displayed
+            pageLength: 10, // Default number of rows
+            dom: 'Bfrtip', // Add buttons
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    text: 'Excel <i class="fa-regular fa-file-excel"></i>',
+                    className: 'btn btn-success btn-sm'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: 'Export PDF <i class="fa-solid fa-file-pdf"></i>',
+                    className: 'btn btn-danger btn-sm'
+                },
+                {
+                    extend: 'print',
+                    text: 'Print <i class="fa-solid fa-print"></i>',
+                    className: 'btn btn-info btn-sm'
+                }
+            ],
+            language: {
+                paginate: {
+                    previous: '&laquo;',
+                    next: '&raquo;'
+                }
+            }
+        });
+    }
+   
+    document.addEventListener("DOMContentLoaded", function () {
+        loadtable(); // Initialize DataTable on initial page load
+    });
+
+    loadtable();
+
 </script>
-
-
-

@@ -22,7 +22,7 @@
             @forelse($feature_products as $product)
                 <div class="col-lg-3 col-md-4 col-sm-6 mix {{$product->department_id}}">
                     <div class="featured__item">
-                    <div class="featured__item__pic set-bg-1" style="background-image: url('{{ asset('storage/' . $product->image) }}');">
+                    <div class="featured__item__pic set-bg-1" style="background-image: url('{{ asset('storage/' .($product->image ?? 'images/default.png')) }}');">
 
                             <ul class="featured__item__pic__hover">
                                 <li>

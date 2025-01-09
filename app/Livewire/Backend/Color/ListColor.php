@@ -13,4 +13,10 @@ class ListColor extends Component
             'products'=>$products
         ]);
     }
+    public function delete($id)
+    {
+        Color::find($id)->delete();
+        $this->dispatch('error', 'Color Removed');
+        return redirect()->route('list-color');
+    }
 }

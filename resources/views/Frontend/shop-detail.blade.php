@@ -10,7 +10,7 @@
                         <h2>Vegetable’s Package</h2>
                         <div class="breadcrumb__option">
                             <a href="/">Home</a>
-                            <a href="./index.html">Vegetables</a>
+                            <a href="#">Vegetables</a>
                             <span>Vegetable’s Package</span>
                         </div>
                     </div>

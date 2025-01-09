@@ -63,7 +63,7 @@
                                         @foreach ($chunk as $latest)
                                             <a href="{{route('shop-detail',$latest->unique_id)}}" class="latest-product__item" >
                                                 <div class="latest-product__item__pic">
-                                                    <img src="{{ asset('storage/' . $latest->image) }}" alt="{{ $latest->title }}">
+                                                    <img src="{{ asset('storage/' . ($latest->image ?? 'images/default.png')) }}" alt="{{ $latest->title }}">
                                                 </div>
                                                 <div class="latest-product__item__text">
                                                     <h6>{{ $latest->title }}</h6>

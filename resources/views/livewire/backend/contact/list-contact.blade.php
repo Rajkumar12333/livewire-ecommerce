@@ -38,27 +38,22 @@
 
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900">
-            <table id="example" class="table table-striped" style="width:100%">
+            <table id="contact-table" class="table table-striped" style="width:100%">
         <thead>
             <tr>
+            <th>Id</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Message</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($products as $product)
-            <tr>
-                <td>{{$product->name}}</td>
-                <td>{{$product->email}}</td>
-                <td>{{$product->message}}</td>
-       
-            </tr>
-            @endforeach
+         
             </tbody>
         <tfoot>
             <tr>
-                <th>Title</th>
+            <th>Id</th>
+                <th>Name</th>
                 <th>Email</th>
                  <th>Message</th>
 
@@ -70,11 +65,68 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    new DataTable('#example');
+    function loadtable() {
+        if ($.fn.DataTable.isDataTable('#contact-table')) {
+            $('#contact-table').DataTable().destroy(); // Destroy the existing DataTable instance
+            $('#contact-table').empty(); // Clear the table
+        }
 
+        $('#contact-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('users.getContact') }}",
+                type: "GET",
+                dataSrc: function (json) {
+                    console.log("Data received:", json); // Debug log
+                    return json.data; // Ensure only the data array is returned
+                },
+                error: function (xhr, error, thrown) {
+                    console.error("DataTable Error:", xhr, error, thrown); // Log any errors
+                }
+            },
+            columns: [
+                { data: 'id', name: 'id' }, // Matches JSON key "id"
+                { data: 'name', name: 'name' }, // Matches JSON key "title"
+                { data: 'email', name: 'email' }, // Matches JSON key "action"
+                { data: 'message', name: 'message' } // Matches JSON key "action"
+            ],
+            responsive: true, // Makes the table responsive
+            lengthChange: true,
+            pageLength: 10,
+            
+            dom: 'Bfrtip', // Add buttons
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    text: 'Excel <i class="fa-regular fa-file-excel"></i>',
+                    className: 'btn btn-success btn-sm'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: 'Export PDF <i class="fa-solid fa-file-pdf"></i>',
+                    className: 'btn btn-danger btn-sm'
+                },
+                {
+                    extend: 'print',
+                    text: 'Print <i class="fa-solid fa-print"></i>',
+                    className: 'btn btn-info btn-sm'
+                }
+            ],
+            language: {
+                paginate: {
+                    previous: '&laquo;',
+                    next: '&raquo;'
+                }
+            }
+        });
+    }
 
+    document.addEventListener("DOMContentLoaded", function () {
+        loadtable(); // Initialize DataTable on initial page load
+    });
+    loadtable(); 
+   
 </script>
-
-
-

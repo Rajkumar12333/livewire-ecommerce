@@ -19,7 +19,7 @@
                                 @foreach($cart as $data)
                                 <tr>
                                     <td class="shoping__cart__item">
-                                        <img src="{{asset('storage/'.$data->product->image)}}" alt="" height="100ox" width="100px">
+                                        <img src="{{asset('storage/'.($data->product->image ?? 'images/default.png'))}}" alt="" height="100ox" width="100px">
                                         <h5>{{$data->product->title}}</h5>
                                     </td>
                                     <td class="shoping__cart__price">
