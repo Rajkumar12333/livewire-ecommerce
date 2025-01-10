@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', "Product Detail page | Ecommerce")
 @section('content')
 
     <!-- Breadcrumb Section Begin -->

@@ -7,7 +7,9 @@ use App\Models\Contact;
 class ContactController extends Controller
 {
     public function list_page(){
-        return view('Backend.Contact.list-contact');
+        return view('Backend.Contact.list-contact',[
+             'page_title'=>'Contact Leads | Ecommerce'
+        ]);
     }
     public function getContact(Request $request)
     {

@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', "Shoping page | Ecommerce")
 @section('content')
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">

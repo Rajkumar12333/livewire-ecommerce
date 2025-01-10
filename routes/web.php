@@ -38,7 +38,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/delete-size/{id}', [SizeController::class, 'destroy'])->name("delete-size");
     Route::get('/contact', [ContactController::class, 'list_page'])->name("list-contact");
 
-    Route::get('/users', UserDatatables::class);
+    Route::get('/users', UserDatatables::class)->name('list-users');
     
     Route::get('/users/get-users', [UserController::class, 'getUsers'])->name('users.getUsers');
     Route::get('/get-product', [ProductController::class, 'getProduct'])->name('users.getProduct');

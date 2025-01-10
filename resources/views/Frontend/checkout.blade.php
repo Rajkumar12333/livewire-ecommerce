@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', "Checkout page | Ecommerce")
 @section('content')
 
     <!-- Hero Section Begin -->

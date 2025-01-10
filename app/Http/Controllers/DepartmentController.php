@@ -9,16 +9,18 @@ class DepartmentController extends Controller
 {
     public function add_page(){
         return view('Backend.Department.add-department',[
-             'page_title'=>'Add Agent'
+             'page_title'=>'Add Department | Ecommerce'
         ]);
     }
     public function list_page(){
-        return view('Backend.Department.list-department');
+        return view('Backend.Department.list-department',[
+             'page_title'=>'List Department | Ecommerce'
+        ]);
     }
     public function edit_page($id){
         return view("Backend.Department.add-department",[
             'recordId' => $id,
-            'page_title'=>'Edit Agent'
+            'page_title'=>'Edit Department | Ecommerce'
         ]);
     }
     // public function getDepartment(Request $request)

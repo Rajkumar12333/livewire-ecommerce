@@ -8,16 +8,18 @@ class SizeController extends Controller
 {
     public function add_page(){
         return view('Backend.Size.add-size',[
-             'page_title'=>'Add Agent'
+             'page_title'=>'Add SIze | Ecommerce'
         ]);
     }
     public function list_page(){
-        return view('Backend.Size.list-size');
+        return view('Backend.Size.list-size',[
+             'page_title'=>'List Size | Ecommerce'
+        ]);
     }
     public function edit_page($id){
         return view("Backend.Size.add-size",[
             'recordId' => $id,
-            'page_title'=>'Edit Agent'
+            'page_title'=>'Edit Size | Ecommerce'
         ]);
     }
     public function getSize(Request $request)

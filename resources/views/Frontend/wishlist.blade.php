@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', "WishList | Ecommerce")
 @section('content')
  
       <!-- Breadcrumb Section Begin -->

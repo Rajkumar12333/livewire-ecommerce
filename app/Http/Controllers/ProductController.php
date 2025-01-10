@@ -9,16 +9,18 @@ class ProductController extends Controller
 {
     public function add_page(){
         return view('Backend.Product.add-product',[
-             'page_title'=>'Add Agent'
+             'page_title'=>'Add Product | Ecommerce'
         ]);
     }
     public function list_page(){
-        return view('Backend.Product.list-product');
+        return view('Backend.Product.list-product',[
+               'page_title'=>'List Product | Ecommerce'
+        ]);
     }
     public function edit_page($id){
         return view("Backend.Product.add-product",[
             'recordId' => $id,
-            'page_title'=>'Edit Agent'
+            'page_title'=>'Edit Product | Ecommerce'
         ]);
     }
     public function destroy($id)
