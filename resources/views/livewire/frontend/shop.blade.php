@@ -7,6 +7,19 @@
                 font-weight: bold; /* Optional: Make the text bold */
             }
 
+            .sidebar__item__color label.selected {
+                background-color: #f0f0f0; /* Highlight background */
+                font-weight: bold; /* Optional: Make the text bold */
+            }
+            .sidebar__item__size label.selected {
+    font-weight: bold; /* Highlight selected label */
+    color: #007bff;    /* Change text color */
+    border: 2px solid #007bff; /* Optional: Add a border for visual emphasis */
+    padding: 5px;      /* Optional: Add some padding */
+    border-radius: 5px; /* Optional: Round the corners */
+}
+
+
         </style>
         <style>
 
@@ -62,7 +75,7 @@
                                 }
                             </style>
                             <div class="sidebar__item__color {{ $colorClass }}">
-                                <label for="{{ $colorClass }}-circle" class="{{ $colorClass }}-circle " wire:click="colorChange({{$data->id}})">
+                                <label for="{{ $colorClass }}-circle" class="{{ $colorClass }}-circle  {{ $data->id == $color ? 'selected' : '' }}" wire:click="colorChange({{$data->id}})">
                                     {{ $data->title }}
                                     <input type="radio" wire:model="color" wire:click.prevent="$set('color', {{ $data->id }})" value="{{ $data->id }}" id="{{ $colorClass }}">
                                 </label>
@@ -71,18 +84,23 @@
 
                         </div>
                         <div class="sidebar__item">
-            <h4>Popular Size 1</h4>
-            @foreach($sizes as $data)
-            
-            <div class="sidebar__item__size">
-                <label for="{{ $data->title }} {{ $data->id == $size ? 'selected' : '' }}" wire:click.prevent="$set('size', {{ $data->id }})">
-                    {{ $data->title }}
-                    <input type="radio" wire:model="size"   value="{{ $data->id }}" id="{{ $data->title }}">
-                </label>
-            </div>
-            @endforeach
-            <button wire:click="resetValues">Reset Filter</button>
-        </div>
+                            <h4>Popular Size 1</h4>
+                            @foreach($sizes as $data)
+                            
+                            <div class="sidebar__item__size">
+    <label 
+        for="{{ $data->title }}" 
+        class="{{ $data->id == $size ? 'selected' : '' }}" 
+        wire:click.prevent="changeSize({{ $data->id }})">
+        {{ $data->title }}
+        <input type="radio" wire:model="size" value="{{ $data->id }}" id="{{ $data->title }}">
+    </label>
+</div>
+
+                            @endforeach
+                         
+                        </div>
+                        <button wire:click="resetValues">Reset Filter</button>
                         <div class="sidebar__item">
                         <div class="latest-product__text">
                             <h4>Latest Products</h4>
@@ -115,10 +133,12 @@
                             <div class="col-lg-4 col-md-5">
                                 <div class="filter__sort">
                                     <span>Sort By</span>
-                                    <select>
-                                        <option value="0">Default</option>
-                                        <option value="0">Default</option>
-                                    </select>
+                                    <select wire:change="changeOrder($event.target.value)">
+                                        <option value="">Select Order</option>
+    <option value="DESC">DESC</option>
+    <option value="ASC">ASC</option>
+</select>
+
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4">
@@ -230,6 +250,12 @@
         $("#price-range-slider").slider("destroy"); // Destroy the previous instance
         initializeSlider(); // Reinitialize the slider
     });
+    Livewire.on('resetSliderValues', function () {
+            $("#price-range-slider").slider("values", [1, 600]); // Reset the slider values
+            updateSliderRange(1, 600);
+            $('#minamount').val(1);
+            $('#maxamount').val(600);
+        });
 });
 
 </script>

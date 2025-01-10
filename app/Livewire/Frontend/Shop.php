@@ -12,6 +12,7 @@ class Shop extends Component
     public $category = null;
     public $color = null;
     public $size = null;
+    public $sortOrder = ''; 
 
     public $department=[];
     public $wishlistItems = [];
@@ -37,8 +38,14 @@ class Shop extends Component
         if ($this->size) {
             $query->where('size_id', $this->size);
         }
+      
+        if ($this->sortOrder) {
+            $query->orderBy('title', $this->sortOrder);
+        }else{
+            $query->orderBy('id', "DESC");
+        }
 
-        $this->product = $query->orderBy('id', 'desc')->get();
+        $this->product = $query->get();
 
         return view('livewire.frontend.shop');
     }
@@ -69,7 +76,7 @@ class Shop extends Component
         $this->filterProducts();
     }
 
-    public function updatedSize($value)
+    public function changeSize($value)
     {
         $this->size=$value;
         $this->filterProducts();
@@ -78,6 +85,11 @@ class Shop extends Component
     {
       
         $this->filterProducts();
+    }
+    public function changeOrder($value)
+    {
+        $this->sortOrder = $value; // Update the sortOrder directly
+        $this->filterProducts(); // Apply your filtering logic
     }
     public function filterProducts()
     {
@@ -95,7 +107,10 @@ class Shop extends Component
         if ($this->size) {
             $query->where('size_id', $this->size);
         }
-    
+        if ($this->sortOrder) {
+            $query->orderBy('title', $this->sortOrder);
+        }
+
         // Output the SQL query string for debugging
         // dd($query->toSql(), $query->getBindings());
     
@@ -192,7 +207,10 @@ class Shop extends Component
         $this->size="";
         $this->category="";
         $this->color="";
-        $this->color=1;
-        $this->color=600;
+        $this->minPrice=1;
+        $this->maxPrice=600;
+        $this->sortOrder="";
+        $this->dispatch('resetSliderValues');
     }
+    
 }
