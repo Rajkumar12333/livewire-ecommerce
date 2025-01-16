@@ -19,8 +19,15 @@ new #[Layout('layouts.guest')] class extends Component
         $this->form->authenticate();
 
         Session::regenerate();
+        $user = Auth::user();
+        \Log::info('User Role: ' . $user->role);
 
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        if ($user->role === "admin") {
+            $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        } else {
+            $this->redirectIntended(default: route('user.dashboard', absolute: false), navigate: true);
+        }
+      
     }
 }; ?>
 

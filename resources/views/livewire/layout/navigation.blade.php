@@ -12,7 +12,7 @@ new class extends Component
     {
         $logout();
 
-        $this->redirect('/', navigate: true);
+        $this->redirect('/login', navigate: true);
     }
 }; ?>
 
@@ -64,6 +64,21 @@ new class extends Component
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('list-users')" :active="request()->routeIs('list-users')" wire:navigate>
                         {{ __('Users') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('roles.index')" :active="request()->routeIs('roles.index')" wire:navigate>
+                        {{ __('Role') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('permissions.index')" :active="request()->routeIs('permissions.index')" wire:navigate>
+                        {{ __('Permission') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('assign.permissions')" :active="request()->routeIs('assign.permissions')" wire:navigate>
+                        {{ __('Role assign') }}
                     </x-nav-link>
                 </div>
             </div>

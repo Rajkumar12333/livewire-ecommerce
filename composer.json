@@ -13,6 +13,7 @@
         "livewire/volt": "^1.0",
         "rappasoft/laravel-livewire-tables": "3.5",
         "razorpay/razorpay": "^2.9",
+        "spatie/laravel-permission": "^6.10",
         "yajra/laravel-datatables-oracle": "^11.1"
     },
     "require-dev": {

@@ -4,11 +4,18 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{ProductController,FrontendController,DepartmentController,ColorController,SizeController,ContactController,UserController};
 // Route::view('/', 'frontend.index');
 use App\Livewire\Table\UserDatatables;
+use App\Livewire\{UserDashboard,UserWishlist};
+use App\Http\Middleware\RoleMiddleware;
+use App\Livewire\RoleManagement;
+use App\Livewire\PermissionManagement;
+use App\Livewire\AssignPermissions;
 
 Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'verified', RoleMiddleware::class . ':admin'])
     ->name('dashboard');
-
+Route::get('/user-dashboard', UserDashboard::class)
+    ->middleware(['auth', 'verified', RoleMiddleware::class . ':user'])
+    ->name('user.dashboard');
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
@@ -17,6 +24,9 @@ require __DIR__.'/auth.php';
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('admin')->group(function () {
+        Route::get('/roles', RoleManagement::class)->name('roles.index');
+Route::get('/permissions', PermissionManagement::class)->name('permissions.index');
+Route::get('/assign-permissions', AssignPermissions::class)->name('assign.permissions');
     Route::get('/add-products', [ProductController::class, 'add_page'])->name("add-products");
     Route::get('/products', [ProductController::class, 'list_page'])->name("list-products");
     Route::get('/edit-products/{id}', [ProductController::class, 'edit_page'])->name("edit-products");
@@ -39,7 +49,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/contact', [ContactController::class, 'list_page'])->name("list-contact");
 
     Route::get('/users', UserDatatables::class)->name('list-users');
-    
+    Route::get('/wishlist', UserDatatables::class)->name('list-user-wishlist');
+
     Route::get('/users/get-users', [UserController::class, 'getUsers'])->name('users.getUsers');
     Route::get('/get-product', [ProductController::class, 'getProduct'])->name('users.getProduct');
     Route::get('/get-department', [DepartmentController::class, 'getDepartment'])->name('users.getDepartment');
@@ -47,6 +58,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/get-size', [SizeController::class, 'getSize'])->name('users.getSize');
     Route::get('/get-contact', [ContactController::class, 'getContact'])->name('users.getContact');
 });
+Route::prefix('user')->group(function () {
+    Route::get('/wishlist', UserWishlist::class)->name('list-user-wishlist');
+});    
 });
 Route::get('/shop', [FrontendController::class, 'shop'])->name("shop");
 Route::get('/contact', [FrontendController::class, 'contact'])->name("contact");
