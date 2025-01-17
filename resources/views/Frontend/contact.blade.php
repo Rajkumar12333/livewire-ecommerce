@@ -75,7 +75,7 @@
     </div>
     <!-- Map End -->
 
-    <livewire:frontend.contact-form />
+    <livewire:frontend.contact-form lazy/>
     <script>
     window.addEventListener('swal', function(e) {
         Swal.fire({

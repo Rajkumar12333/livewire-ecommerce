@@ -3,7 +3,7 @@
 @section('content')
 
     <!-- Hero Section Begin -->
-    <livewire:frontend.checkout  />
+    <livewire:frontend.checkout lazy />
     <!-- Checkout Section End -->
 
     @endsection

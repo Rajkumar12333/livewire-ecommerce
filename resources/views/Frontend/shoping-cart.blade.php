@@ -19,6 +19,6 @@
     </section>
     <!-- Breadcrumb Section End -->
 
-    <livewire:frontend.shoping-cart  />
+    <livewire:frontend.shoping-cart  lazy/>
 
     @endsection

@@ -20,6 +20,6 @@
         </div>
     </section>
     <!-- Breadcrumb Section End -->
-    <livewire:frontend.shop-details  :recordId="$recordId??null"/>
-    <livewire:frontend.related-product  :recordId="$recordId??null"/>
+    <livewire:frontend.shop-details  :recordId="$recordId??null" lazy/>
+    <livewire:frontend.related-product  :recordId="$recordId??null" lazy/>
     @endsection

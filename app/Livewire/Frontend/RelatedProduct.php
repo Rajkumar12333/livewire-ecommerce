@@ -15,6 +15,18 @@ class RelatedProduct extends Component
     {
         return view('livewire.frontend.related-product');
     }
+    public function placeholder()
+    {
+        return <<<'HTML'
+            <div>
+                <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden"></span>
+                    </div>
+                </div>
+            </div>
+        HTML;
+    }
     public function mount($recordId=null){
         $this->products=Product::where('unique_id',$this->recordId)->first();
         $this->relatedProducts = Product::where('department_id', $this->products->category_id)

@@ -18,5 +18,5 @@
         </div>
     </section>
     <!-- Breadcrumb Section End -->
-    <livewire:frontend.shop  />
+    <livewire:frontend.shop  lazy/>
     @endsection

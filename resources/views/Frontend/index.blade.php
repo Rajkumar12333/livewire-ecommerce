@@ -57,11 +57,11 @@
     <!-- Hero Section End -->
 
     <!-- Categories Section Begin -->
-    <livewire:product-scroll  />
+    <livewire:product-scroll />
     <!-- Categories Section End -->
 
     <!-- Featured Section Begin -->
-    <livewire:frontend.featured-products />
+    <livewire:frontend.featured-products lazy/>
     <!-- Featured Section End -->
 
     <!-- Banner Begin -->

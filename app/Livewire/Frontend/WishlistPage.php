@@ -17,6 +17,18 @@ class WishlistPage extends Component
     {
         return view('livewire.frontend.wishlist-page');
     }
+    public function placeholder()
+    {
+        return <<<'HTML'
+            <div>
+                <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden"></span>
+                    </div>
+                </div>
+            </div>
+        HTML;
+    }
     public function addToWishlist($productId)
     {
         if (!Auth::check()) {

@@ -12,6 +12,18 @@ class ContactForm extends Component
     {
         return view('livewire.frontend.contact-form');
     }
+    public function placeholder()
+    {
+        return <<<'HTML'
+            <div>
+                <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden"></span>
+                    </div>
+                </div>
+            </div>
+        HTML;
+    }
     public function store(){
         $product = new Contact();
         $product->name = $this->name;

@@ -23,8 +23,21 @@ class Shop extends Component
     public $minPrice = 1;
     public $maxPrice = 600;
     protected $listeners = ['refreshComponent' => '$refresh'];
+    public function placeholder()
+    {
+        return <<<'HTML'
+            <div>
+                <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden"></span>
+                    </div>
+                </div>
+            </div>
+        HTML;
+    }
     public function render()
     {
+       
         $query = Product::query();
         $query->whereBetween('price', [$this->minPrice, $this->maxPrice]);
         if ($this->category) {

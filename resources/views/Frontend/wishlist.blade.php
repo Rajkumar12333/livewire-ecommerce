@@ -19,6 +19,6 @@
         </div>
     </section>
     <!-- Breadcrumb Section End -->
-<livewire:frontend.wishlist-page  />
+<livewire:frontend.wishlist-page  lazy/>
 
     @endsection

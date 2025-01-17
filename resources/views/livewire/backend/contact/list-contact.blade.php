@@ -118,9 +118,9 @@
         });
     }
 
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener('livewire:navigated', () => { 
         loadtable(); // Initialize DataTable on initial page load
     });
-    loadtable(); 
+   
    
 </script>

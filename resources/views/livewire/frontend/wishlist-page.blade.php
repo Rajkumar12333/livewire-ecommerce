@@ -6,7 +6,7 @@
     @foreach($wishlistProducts as $product)
                                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="product__item">
-                                    </a><div class="product__item__pic set-bg-1" style="background-image: url('{{ asset('storage/' . ($product->image ?? 'images/default.png')) }}');">
+                                    </a><div class="product__item__pic set-bg-1" style="background-image: url('{{ asset('storage/' . ($product->image ?? 'images/default.png')) }}');background-size: cover;">
                                         <ul class="product__item__pic__hover">
                                             <li>
                                             <a wire:click.prevent="toggleWishlist({{ $product->id }})">

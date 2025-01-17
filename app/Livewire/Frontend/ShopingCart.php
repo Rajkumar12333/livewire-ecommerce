@@ -40,6 +40,19 @@ class ShopingCart extends Component
         return $subtotal;
     }
 
+    public function placeholder()
+    {
+        return <<<'HTML'
+            <div>
+                <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden"></span>
+                    </div>
+                </div>
+            </div>
+        HTML;
+    }
+
     public function calculateTotal()
     {
         // In this simple example, the total is equal to the subtotal
