@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Backend\User;
+namespace App\Livewire\Button;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +17,6 @@ class LogoutButton extends Component
 
     public function render()
     {
-        return view('livewire.backend.user.logout-button');
+        return view('livewire.button.logout-button');
     }
 }

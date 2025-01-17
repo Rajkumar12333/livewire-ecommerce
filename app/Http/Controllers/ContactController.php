@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Contact;
+use App\Models\{Contact,Wishlist,Product};
 class ContactController extends Controller
 {
     public function list_page(){
@@ -55,5 +55,6 @@ class ContactController extends Controller
             'data' => $data
         ]);
     }
-        
+  
+    
 }

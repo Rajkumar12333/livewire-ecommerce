@@ -59,44 +59,7 @@
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- <script>
-    function loadtable() {
-        if ($.fn.DataTable.isDataTable('#color-table')) {
-            $('#color-table').DataTable().destroy(); // Destroy the existing DataTable instance
-            $('#color-table').empty(); // Clear the table to prevent duplication
-        }
 
-        $('#color-table').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: {
-                url: "{{ route('users.getColor') }}",
-                type: "GET",
-                dataSrc: function (json) {
-                    console.log("Data received:", json); // Debug log
-                    return json.data; // Ensure only the data array is returned
-                },
-                error: function (xhr, error, thrown) {
-                    console.error("DataTable Error:", xhr, error, thrown); // Log any errors
-                }
-            },
-            columns: [
-                { data: 'id', name: 'id' },
-                { data: 'title', name: 'title' },
-               
-             
-                { data: 'action', name: 'action', orderable: false, searchable: false }
-            ]
-        });
-    }
-   
-    document.addEventListener("DOMContentLoaded", function () {
-        loadtable(); // Initialize DataTable on initial page load
-    });
-
-    loadtable();
-
-</script> -->
 <script>
     function loadtable() {
     if ($.fn.DataTable.isDataTable('#color-table')) {

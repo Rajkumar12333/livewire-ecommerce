@@ -1,10 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{ProductController,FrontendController,DepartmentController,ColorController,SizeController,ContactController,UserController};
+use App\Http\Controllers\{ProductController,FrontendController,DepartmentController,ColorController,SizeController,ContactController,UserController,
+    WishlistController,CartController};
 // Route::view('/', 'frontend.index');
 use App\Livewire\Table\UserDatatables;
 use App\Livewire\{UserDashboard,UserWishlist};
+
+use App\Livewire\Backend\User\CartList;
 use App\Http\Middleware\RoleMiddleware;
 use App\Livewire\RoleManagement;
 use App\Livewire\PermissionManagement;
@@ -57,9 +60,13 @@ Route::get('/assign-permissions', AssignPermissions::class)->name('assign.permis
     Route::get('/get-color', [ColorController::class, 'getColor'])->name('users.getColor');
     Route::get('/get-size', [SizeController::class, 'getSize'])->name('users.getSize');
     Route::get('/get-contact', [ContactController::class, 'getContact'])->name('users.getContact');
+    Route::get('/get-wishlist', [WishlistController::class, 'getWishlist'])->name('getContent.getWishlist');
+    Route::get('/get-cart', [CartController::class, 'getCart'])->name('getContent.getCart');
+    
 });
 Route::prefix('user')->group(function () {
     Route::get('/wishlist', UserWishlist::class)->name('list-user-wishlist');
+    Route::get('/cart', CartList::class)->name('list-user-wishlist');
 });    
 });
 Route::get('/shop', [FrontendController::class, 'shop'])->name("shop");

@@ -154,6 +154,7 @@
 
    
     <!-- Product Section Begin -->
+
     @yield('content')
     <!-- Product Section End -->
 

@@ -13,7 +13,8 @@
     <meta name="msapplication-tap-highlight" content="no">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js" integrity="sha512-b+nQTCdtTBIRIbraqNEwsjB6UvL3UEMkXnhzd8awtCYh0Kcsjl9uEgwVFVbhoj3uu1DO1ZMacNvLoyJJiNfcvg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<!-- <link href="https://demo.dashboardpack.com/architectui-html-free/main.css" rel="stylesheet"> -->
+<link href="{{asset('css/user-dashboard/main.css')}}" rel="stylesheet">
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
@@ -86,7 +87,7 @@
                                 <div class="widget-content-left">
                                     <div class="btn-group">
                                         <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-                                            <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg" alt="">
+                                            <img width="42" class="rounded-circle" src="{{asset('img/avatar/1d29fc60-9ada-476b-be99-fecb861b51bb.jpg')}}" alt="">
                                             <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                         </a>
                                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
@@ -96,16 +97,17 @@
                                             <button type="button" tabindex="0" class="dropdown-item">Actions</button>
                                             <div tabindex="-1" class="dropdown-divider"></div>
                                             
-                                            <livewire:backend.user.logout-button />
+                                            <livewire:button.logout-button />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="widget-content-left  ml-3 header-user-info">
                                     <div class="widget-heading">
-                                        Alina Mclourd
+                                    {{ Auth::user()->name }}
+
                                     </div>
                                     <div class="widget-subheading">
-                                        VP People Manager
+                                    {{ Auth::user()->role }}
                                     </div>
                                 </div>
                                 <div class="widget-content-right header-user-info ml-3">
@@ -127,6 +129,7 @@
                 <div class="scrollbar-container">
                     <div class="theme-settings__options-wrapper">
                         <h3 class="themeoptions-heading">Layout Options
+                            
                         </h3>
                         <div class="p-3">
                             <ul class="list-group">
@@ -452,59 +455,11 @@
                                                 Wishlist
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="metismenu-icon">
-                                                </i>Dropdowns
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="metismenu-icon">
-                                                </i>Icons
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="metismenu-icon">
-                                                </i>Badges
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="metismenu-icon">
-                                                </i>Cards
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="metismenu-icon">
-                                                </i>List Groups
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="metismenu-icon">
-                                                </i>Navigation Menus
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="metismenu-icon">
-                                                </i>Utilities
-                                            </a>
-                                        </li>
+                                        
                                     </ul>
                                 </li>
                              
-                                <li class="app-sidebar__heading">PRO Version</li>
-                                <li>
-                                    <a href="#" target="_blank">
-                                        <i class="metismenu-icon pe-7s-graph2">
-                                        </i>
-                                        Upgrade to PRO
-                                    </a>
-                                </li>
+                               
                             </ul>
                         </div>
                     </div>
@@ -512,6 +467,37 @@
 
                 {{ $slot }}
              </div>
+
+
+             <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- DataTables CSS for Bootstrap 5 -->
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
+<!-- DataTables Buttons Extension CSS -->
+<link href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css" rel="stylesheet">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+<!-- DataTables Buttons Extension JS -->
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+@livewireScripts
+@vite(['resources/js/app.js', 'resources/css/app.css'])
                 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
         </div>
     </div>

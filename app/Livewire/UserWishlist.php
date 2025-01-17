@@ -6,12 +6,15 @@ use Livewire\Component;
 use App\Models\{Product,Wishlist};
 class UserWishlist extends Component
 {
-    public  $wishlistProducts=[];
+    // public  $wishlistProducts=[];
     public function mount(){
-        $this->wishlistProducts = Product::whereIn('id', Wishlist::where('user_id', auth()->id())->pluck('product_id'))->get();
+    
     }
     public function render()
     {
-        return view('livewire.user-wishlist')->layout('layouts.user-dashboard');
+        $wishlistProducts = Product::whereIn('id', Wishlist::where('user_id', auth()->id())->pluck('product_id'))->paginate(1);
+        return view('livewire.user-wishlist',[
+            'wishlistProducts'=>$wishlistProducts
+        ])->layout('layouts.user-dashboard');
     }
 }

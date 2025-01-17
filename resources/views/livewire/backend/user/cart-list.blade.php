@@ -212,7 +212,7 @@
         processing: true,
         serverSide: true,
         ajax: {
-            url: "{{ route('getContent.getWishlist') }}",
+            url: "{{ route('getContent.getCart') }}",
             type: "GET",
             dataSrc: function (json) {
                 console.log("Data received:", json); // Debug log
@@ -223,7 +223,7 @@
             }
         },
         columns: [
-            // { data: 'id', name: 'id' },
+            { data: 'id', name: 'id' },
             { data: 'title', name: 'title' },
             { data: 'image', name: 'image' },
             { data: 'price', name: 'price' },
