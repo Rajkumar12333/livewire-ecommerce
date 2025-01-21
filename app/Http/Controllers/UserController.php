@@ -18,10 +18,13 @@ class UserController extends Controller
         $users = User::query();
     
         return DataTables::of($users)
-            // ->addColumn('action', function ($user) {
-            //     return '<a class="btn btn-sm btn-primary" href="' . route('edit-user', ['id' => $user->id]) . '">Edit</a>';
-            // })
-            // ->rawColumns(['action']) // Ensure the action column renders HTML
+            ->addColumn('action', function ($user) {
+                return '</button>
+                                  <button type="button" class="btn btn-sm btn-info" wire:click="openPopup(' . $user->id . ')">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>';
+            })
+            ->rawColumns(['action']) // Ensure the action column renders HTML
             ->make(true);
     }
     

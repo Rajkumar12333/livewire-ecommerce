@@ -3479,3 +3479,21 @@ ol {
     font-size: 18px;
     color: #777;
 }
+.popup {
+    position: fixed; /* Position the modal in a fixed spot on the screen */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for perfect centering */
+    background-color: rgba(0, 0, 0, 0.5); /* Overlay background */
+    width: 600px; /* Increased width for medium-large modal */
+    max-width: 90%; /* Ensure it's responsive */
+    padding: 20px;
+    z-index: 1000; /* Ensure it's above other content */
+}
+
+.popup-content {
+    background-color: white; /* White background for the modal content */
+    padding: 30px; /* Increased padding for better spacing */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

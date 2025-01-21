@@ -29,7 +29,7 @@ class CartController extends Controller
         // Format data with the action column
         $data = $products->map(function ($product) {
 
-// dd($product);
+
          
             return [
                 'id' => $product->id,

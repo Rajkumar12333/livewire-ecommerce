@@ -44,6 +44,10 @@ class ContactController extends Controller
                 'name' => $size->name,
                 'email' => $size->email,
                 'message' => $size->message,
+                'action' => '</button>
+                                  <button type="button" class="btn btn-sm btn-info" wire:click="openPopup(' . $size->id . ')">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>',
             ];
         });
     

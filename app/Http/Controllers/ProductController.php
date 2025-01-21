@@ -64,7 +64,10 @@ class ProductController extends Controller
                                 </a>
                                 <button type="button" class="btn btn-sm btn-danger" onclick="deleteProduct(' . $product->id . ')">
                                     <i class="fa-solid fa-trash"></i>
-                                </button>',
+                                </button>
+                                  <button type="button" class="btn btn-sm btn-info" wire:click="openPopup(' . $product->id . ')">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>',
                 ];
             }),
         ]);

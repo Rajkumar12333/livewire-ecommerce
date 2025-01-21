@@ -25,11 +25,11 @@ Route::view('profile', 'profile')
 
 require __DIR__.'/auth.php';
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', RoleMiddleware::class . ':admin'])->group(function () {
     Route::prefix('admin')->group(function () {
-        Route::get('/roles', RoleManagement::class)->name('roles.index');
-Route::get('/permissions', PermissionManagement::class)->name('permissions.index');
-Route::get('/assign-permissions', AssignPermissions::class)->name('assign.permissions');
+    Route::get('/roles', RoleManagement::class)->name('roles.index');
+    Route::get('/permissions', PermissionManagement::class)->name('permissions.index');
+    Route::get('/assign-permissions', AssignPermissions::class)->name('assign.permissions');
     Route::get('/add-products', [ProductController::class, 'add_page'])->name("add-products");
     Route::get('/products', [ProductController::class, 'list_page'])->name("list-products");
     Route::get('/edit-products/{id}', [ProductController::class, 'edit_page'])->name("edit-products");
@@ -60,14 +60,18 @@ Route::get('/assign-permissions', AssignPermissions::class)->name('assign.permis
     Route::get('/get-color', [ColorController::class, 'getColor'])->name('users.getColor');
     Route::get('/get-size', [SizeController::class, 'getSize'])->name('users.getSize');
     Route::get('/get-contact', [ContactController::class, 'getContact'])->name('users.getContact');
-    Route::get('/get-wishlist', [WishlistController::class, 'getWishlist'])->name('getContent.getWishlist');
-    Route::get('/get-cart', [CartController::class, 'getCart'])->name('getContent.getCart');
+  
     
 });
-Route::prefix('user')->group(function () {
-    Route::get('/wishlist', UserWishlist::class)->name('list-user-wishlist');
-    Route::get('/cart', CartList::class)->name('list-user-wishlist');
-});    
+   
+});
+Route::middleware(['auth', 'verified', RoleMiddleware::class . ':user'])->group(function () {
+    Route::prefix('user')->group(function () {
+        Route::get('/get-wishlist', [WishlistController::class, 'getWishlist'])->name('getContent.getWishlist');
+        Route::get('/get-cart', [CartController::class, 'getCart'])->name('getContent.getCart');
+        Route::get('/wishlist', UserWishlist::class)->name('list-user-wishlist');
+        Route::get('/cart', CartList::class)->name('list-user-cart');
+    }); 
 });
 Route::get('/shop', [FrontendController::class, 'shop'])->name("shop");
 Route::get('/contact', [FrontendController::class, 'contact'])->name("contact");

@@ -70,7 +70,11 @@ class DepartmentController extends Controller
                                 </a>
                                 <button type="button" class="btn btn-sm btn-danger" onclick="delete(' . $department->id . ')">
                                     <i class="fa-solid fa-trash"></i>
-                                </button>',
+                                </button>
+                                </button>
+                                  <button type="button" class="btn btn-sm btn-info" wire:click="openPopup(' . $department->id . ')">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>',
                 ];
             }),
         ]);

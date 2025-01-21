@@ -51,6 +51,10 @@ class ColorController extends Controller
                 'action' => '<a class="btn btn-sm btn-primary" href="' . route('edit-color', ['id' => $color->id]) . '" wire:navigate><i class="fa-solid fa-pen-to-square"></i></a>
                             <button type="button" class="btn btn-sm btn-danger" wire:click.prevent="delete(' . $color->id . ')">
                                 <i class="fa-solid fa-trash"></i>
+                            </button>
+                            </button>
+                                  <button type="button" class="btn btn-sm btn-info" wire:click="openPopup(' . $color->id . ')">
+                                <i class="fa-solid fa-eye"></i>
                             </button>',
             ];
         });

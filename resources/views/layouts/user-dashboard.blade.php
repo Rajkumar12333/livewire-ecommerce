@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js" integrity="sha512-b+nQTCdtTBIRIbraqNEwsjB6UvL3UEMkXnhzd8awtCYh0Kcsjl9uEgwVFVbhoj3uu1DO1ZMacNvLoyJJiNfcvg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link href="{{asset('css/user-dashboard/main.css')}}" rel="stylesheet">
-@vite(['resources/css/app.css', 'resources/js/app.js'])
+@livewireStyles
 </head>
 <body>
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
@@ -436,7 +436,7 @@
                             <ul class="vertical-nav-menu">
                                 <li class="app-sidebar__heading">Dashboards</li>
                                 <li>
-                                    <a href="{{route('user.dashboard')}}" class="mm-active">
+                                    <a href="{{route('user.dashboard')}}" class="mm-active" wire:navigate>
                                     <i class="fa-solid fa-gauge"></i>
                                         Dashboard 
                                     </a>
@@ -450,12 +450,17 @@
                                     </a>
                                     <ul>
                                         <li>
-                                            <a href="{{route('list-user-wishlist')}}">
+                                            <a href="{{route('list-user-wishlist')}}" wire:navigate>
                                                 <i class="metismenu-icon"></i>
                                                 Wishlist
                                             </a>
                                         </li>
-                                        
+                                        <li>
+                                            <a href="{{route('list-user-cart')}}" wire:navigate>
+                                                <i class="metismenu-icon"></i>
+                                                Cart
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                              
@@ -497,9 +502,10 @@
 <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
 @livewireScripts
-@vite(['resources/js/app.js', 'resources/css/app.css'])
+
                 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
         </div>
     </div>
-<script type="text/javascript" src="https://demo.dashboardpack.com/architectui-html-free/assets/scripts/main.js"></script></body>
+<script type="text/javascript" src="{{asset('js/user-dashboard/main.js')}}"></script>
+</body>
 </html>

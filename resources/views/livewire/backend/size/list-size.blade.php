@@ -30,31 +30,33 @@
     });
 </script>
 
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg" wire:ignore>
             <div class="p-6 text-gray-900">
             <a href="{{route('add-size')}}" class="btn btn-success">Add</a>
             <table id="size-table" class="table table-striped" style="width:100%">
-        <thead>
-            <tr>
-            <th>Id</th>
-                <th>Title</th>
-              
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
         
-            </tbody>
-        <tfoot>
-            <tr>
-            <th>Id</th>
-                <th>Title</th>
-              
-                <th>Action</th>
-            </tr>
-        </tfoot>
     </table>
 
+            </div>
+        </div>
+    </div>
+    <div x-data="{ isOpen: @entangle('isOpen') }">
+        <!-- Popup Modal -->
+        <div x-show="isOpen" class="popup">
+    
+            <div class="popup-content">
+            <button class="btn btn-danger" @click="isOpen = false" style="position: absolute; top: 10px; right: 10px; border: none; padding: 5px 10px; font-size: 16px; cursor: pointer;">
+                    X
+                </button>
+                <h3>Size Details</h3>
+                @if(!empty($sizeFetch))
+                    <p><strong>Title:</strong> {{ $sizeFetch->title }}</p>
+                
+                  
+                @else
+                    <p>Loading...</p> <!-- Show loading if product is not found -->
+                @endif
+            
             </div>
         </div>
     </div>
@@ -62,23 +64,42 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     function loadtable() {
+        const table = $('#size-table');
         if ($.fn.DataTable.isDataTable('#size-table')) {
-            $('#size-table').DataTable().destroy(); // Destroy the existing DataTable instance
-            $('#size-table').empty(); // Clear the table
+            table.DataTable().destroy(); // Destroy the existing DataTable instance
+            table.empty(); // Clear the table
         }
+        table.find('thead, tfoot').remove();
 
-        $('#size-table').DataTable({
+        // Re-append the original thead and tfoot
+        table.append(`
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Action</th>
+                </tr>
+            </tfoot>
+        `);
+        table.DataTable({
             processing: true,
             serverSide: true,
             ajax: {
                 url: "{{ route('users.getSize') }}",
                 type: "GET",
                 dataSrc: function (json) {
-                    console.log("Data received:", json); // Debug log
+                    // console.log("Data received:", json); // Debug log
                     return json.data; // Ensure only the data array is returned
                 },
                 error: function (xhr, error, thrown) {
-                    console.error("DataTable Error:", xhr, error, thrown); // Log any errors
+                    // console.error("DataTable Error:", xhr, error, thrown); // Log any errors
                 }
             },
             columns: [

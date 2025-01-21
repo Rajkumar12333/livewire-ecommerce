@@ -4,29 +4,35 @@ namespace App\Livewire\Backend\Product;
 
 use Livewire\Component;
 use App\Models\Product;
+
 class ListProduct extends Component
 {
     protected $listeners = [
         'refreshComponent' => '$refresh',
     ];
-    public function render()
+
+    public $isOpen = false,$product=[];
+    public function openPopup($productId)
     {
-        // $products=Product::orderBy('id','desc')->get();
-        return view('livewire.backend.product.list-product',[
-            // 'products'=>$products
-        ]);
+        $this->product = Product::find($productId); // Make sure product details are fetched
+   
+        $this->isOpen = true; // Open the popup
     }
 
- 
-    /**
-     * Write code on Method
-     *
-     * @return response()
-     */
+    // Event handler to close the popup
+    public function closePopup()
+    {
+        $this->isOpen = false; // Close the popup
+    }
+    public function render()
+    {
+        return view('livewire.backend.product.list-product');
+    }
+
     public function delete($id)
     {
         Product::find($id)->delete();
-        $this->dispatch('error', 'Product Deleted');
+        session()->flash('message', 'Product Deleted');
         return redirect()->route('list-products');
     }
 }

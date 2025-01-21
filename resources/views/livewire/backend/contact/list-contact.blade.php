@@ -30,31 +30,32 @@
     });
 </script>
 
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg" wire:ignore>
             <div class="p-6 text-gray-900">
             <table id="contact-table" class="table table-striped" style="width:100%">
-        <thead>
-            <tr>
-            <th>Id</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Message</th>
-            </tr>
-        </thead>
-        <tbody>
-         
-            </tbody>
-        <tfoot>
-            <tr>
-            <th>Id</th>
-                <th>Name</th>
-                <th>Email</th>
-                 <th>Message</th>
+              
+                </table>
 
-            </tr>
-        </tfoot>
-    </table>
-
+            </div>
+        </div>
+    </div>
+    <div x-data="{ isOpen: @entangle('isOpen') }">
+        <!-- Popup Modal -->
+        <div x-show="isOpen" class="popup">
+    
+            <div class="popup-content">
+            <button class="btn btn-danger" @click="isOpen = false" style="position: absolute; top: 10px; right: 10px; border: none; padding: 5px 10px; font-size: 16px; cursor: pointer;">
+                    X
+                </button>
+                <h3>Contact Details</h3>
+                @if(!empty($contact))
+                    <p><strong>Name:</strong> {{ $contact->name }}</p>
+                    <p><strong>Email:</strong> {{ $contact->email }}</p>
+                    <p><strong>Message:</strong> {{ $contact->message }}</p>
+                @else
+                    <p>Loading...</p> <!-- Show loading if product is not found -->
+                @endif
+            
             </div>
         </div>
     </div>
@@ -62,30 +63,58 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     function loadtable() {
-        if ($.fn.DataTable.isDataTable('#contact-table')) {
-            $('#contact-table').DataTable().destroy(); // Destroy the existing DataTable instance
-            $('#contact-table').empty(); // Clear the table
-        }
+        const table = $('#contact-table');
 
-        $('#contact-table').DataTable({
+
+        
+        if ($.fn.DataTable.isDataTable('#contact-table')) {
+            table.DataTable().destroy(); // Destroy the existing DataTable instance
+            table.empty(); // Clear the table
+        }
+        table.find('thead, tfoot').remove();
+
+        // Re-append the original thead and tfoot
+        table.append(`
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th>Action</th>
+                </tr>
+            </tfoot>
+        `);
+
+        table.DataTable({
             processing: true,
             serverSide: true,
             ajax: {
                 url: "{{ route('users.getContact') }}",
                 type: "GET",
                 dataSrc: function (json) {
-                    console.log("Data received:", json); // Debug log
+                    // console.log("Data received:", json); // Debug log
                     return json.data; // Ensure only the data array is returned
                 },
                 error: function (xhr, error, thrown) {
-                    console.error("DataTable Error:", xhr, error, thrown); // Log any errors
+                    // console.error("DataTable Error:", xhr, error, thrown); // Log any errors
                 }
             },
             columns: [
                 { data: 'id', name: 'id' }, // Matches JSON key "id"
                 { data: 'name', name: 'name' }, // Matches JSON key "title"
                 { data: 'email', name: 'email' }, // Matches JSON key "action"
-                { data: 'message', name: 'message' } // Matches JSON key "action"
+                { data: 'message', name: 'message' }, // Matches JSON key "action"
+                { data: 'action', name: 'action', orderable: false, searchable: false }
             ],
             responsive: true, // Makes the table responsive
             lengthChange: true,
@@ -118,9 +147,14 @@
         });
     }
 
-    document.addEventListener('livewire:navigated', () => { 
-        loadtable(); // Initialize DataTable on initial page load
-    });
+    document.addEventListener('livewire:navigated', () => {
+    loadtable();
+});
+
+// Initial load
+document.addEventListener('DOMContentLoaded', () => {
+    loadtable();
+});
    
    
 </script>

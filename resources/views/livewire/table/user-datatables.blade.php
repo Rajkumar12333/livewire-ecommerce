@@ -12,14 +12,7 @@
 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
 <div class="p-6 text-gray-900">
     <table class="table table-striped table-hover" id="users-table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <!-- <th>Actions</th> -->
-            </tr>
-        </thead>
+       
     </table>
     </div>
     </div>
@@ -28,12 +21,33 @@
     <script>
    
     function loadtable() {
+        const table = $('#users-table');
         if ($.fn.DataTable.isDataTable('#users-table')) {
-            $('#users-table').DataTable().destroy(); // Destroy the existing DataTable instance
-            $('#users-table').empty(); // Clear the table
+            table.DataTable().destroy(); // Destroy the existing DataTable instance
+            table.empty(); // Clear the table
         }
+        table.find('thead, tfoot').remove();
 
-        $('#users-table').DataTable({
+        // Re-append the original thead and tfoot
+        table.append(`
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+            </tfoot>
+        `);
+        table.DataTable({
             processing: true,
             serverSide: true,
             ajax: {
@@ -51,6 +65,7 @@
                 { data: 'id', name: 'id' },
                 { data: 'name', name: 'name' },
                 { data: 'email', name: 'email' },
+                { data: 'action', name: 'action', orderable: false, searchable: false }
             ],
             responsive: true, // Makes the table responsive
             lengthChange: true,

@@ -29,91 +29,114 @@
     });
 </script>
 
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg" wire:ignore>
             <div class="p-6 text-gray-900">
             <a href="{{route('add-color')}}" class="btn btn-success" wire:navigate>Add</a>
             <table id="color-table" class="table table-striped" style="width:100%">
-        <thead>
-            <tr>
-            <th>Id</th>
-                <th>Title</th>
-               
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-           
-            </tbody>
-        <tfoot>
-            <tr>
-            <th>Id</th>
-                <th>Title</th>
-               
-                <th>Action</th>
-            </tr>
-        </tfoot>
-    </table>
+                
+            </table>
 
             </div>
         </div>
     </div>
+    <div x-data="{ isOpen: @entangle('isOpen') }">
+        <!-- Popup Modal -->
+        <div x-show="isOpen" class="popup">
+    
+            <div class="popup-content">
+            <button class="btn btn-danger" @click="isOpen = false" style="position: absolute; top: 10px; right: 10px; border: none; padding: 5px 10px; font-size: 16px; cursor: pointer;">
+                    X
+                </button>
+                <h3>Product Details</h3>
+                @if(!empty($product))
+                    <p><strong>Title:</strong> {{ $product->title }}</p>
+                
+                    <p><strong>Image:</strong> <img src="{{ asset('storage/' . ($product->image ?? 'images/default.png')) }}" height="100px" width="100px" alt="Product Image"></p>
+
+                @else
+                    <p>Loading...</p> <!-- Show loading if product is not found -->
+                @endif
+            
+            </div>
+        </div>
+    </div>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
     function loadtable() {
-    if ($.fn.DataTable.isDataTable('#color-table')) {
-        $('#color-table').DataTable().destroy(); // Destroy the existing DataTable instance
-        $('#color-table').empty(); // Clear the table to prevent duplication
-    }
-
-    $('#color-table').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: {
-            url: "{{ route('users.getColor') }}",
-            type: "GET",
-            dataSrc: function (json) {
-                console.log("Data received:", json); // Debug log
-                return json.data; // Ensure only the data array is returned
-            },
-            error: function (xhr, error, thrown) {
-                console.error("DataTable Error:", xhr, error, thrown); // Log any errors
-            }
-        },
-        columns: [
-            { data: 'id', name: 'id' },
-            { data: 'title', name: 'title' },
-            { data: 'action', name: 'action', orderable: false, searchable: false }
-        ],
-        responsive: true, // Makes the table responsive
-        lengthChange: true, // Enable changing number of rows displayed
-        pageLength: 10, // Default number of rows
-        dom: 'Bfrtip', // Add buttons
-        buttons: [
-            {
-                extend: 'excelHtml5',
-                text: 'Excel <i class="fa-regular fa-file-excel"></i>',
-                className: 'btn btn-success btn-sm'
-            },
-            {
-                extend: 'pdfHtml5',
-                text: 'Export PDF <i class="fa-solid fa-file-pdf"></i>',
-                className: 'btn btn-danger btn-sm'
-            },
-            {
-                extend: 'print',
-                text: 'Print <i class="fa-solid fa-print"></i>',
-                className: 'btn btn-info btn-sm'
-            }
-        ],
-        language: {
-            paginate: {
-                previous: '&laquo;',
-                next: '&raquo;'
-            }
+        const table = $('#color-table');
+        if ($.fn.DataTable.isDataTable('#color-table')) {
+            table.DataTable().destroy(); // Destroy the existing DataTable instance
+            table.empty(); // Clear the table to prevent duplication
         }
-    });
+        table.find('thead, tfoot').remove();
+
+        // Re-append the original thead and tfoot
+        table.append(`
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Action</th>
+                </tr>
+            </tfoot>
+        `);
+        table.DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('users.getColor') }}",
+                type: "GET",
+                dataSrc: function (json) {
+                    // console.log("Data received:", json); // Debug log
+                    return json.data; // Ensure only the data array is returned
+                },
+                error: function (xhr, error, thrown) {
+                    // console.error("DataTable Error:", xhr, error, thrown); // Log any errors
+                }
+            },
+            columns: [
+                { data: 'id', name: 'id' },
+                { data: 'title', name: 'title' },
+                { data: 'action', name: 'action', orderable: false, searchable: false }
+            ],
+            responsive: true, // Makes the table responsive
+            lengthChange: true, // Enable changing number of rows displayed
+            pageLength: 10, // Default number of rows
+            dom: 'Bfrtip', // Add buttons
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    text: 'Excel <i class="fa-regular fa-file-excel"></i>',
+                    className: 'btn btn-success btn-sm'
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: 'Export PDF <i class="fa-solid fa-file-pdf"></i>',
+                    className: 'btn btn-danger btn-sm'
+                },
+                {
+                    extend: 'print',
+                    text: 'Print <i class="fa-solid fa-print"></i>',
+                    className: 'btn btn-info btn-sm'
+                }
+            ],
+            language: {
+                paginate: {
+                    previous: '&laquo;',
+                    next: '&raquo;'
+                }
+            }
+        });
 }
 
 

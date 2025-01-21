@@ -48,7 +48,11 @@ class SizeController extends Controller
                 'action' => '<a class="btn btn-sm btn-primary" href="' . route('edit-color', ['id' => $size->id]) . '" wire:navigate><i class="fa-solid fa-pen-to-square"></i></a>
                              <button type="button" class="btn btn-sm btn-danger" wire:click.prevent="delete(' . $size->id . ')">
                                  <i class="fa-solid fa-trash"></i>
-                             </button>',
+                             </button>
+                             </button>
+                                  <button type="button" class="btn btn-sm btn-info" wire:click="openPopup(' . $size->id . ')">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>',
             ];
         });
     
